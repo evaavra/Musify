@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Musify.Models.Song>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2></h2>
+
+<p>
+    @Html.ActionLink("Create New", "New")
+</p>
+<table class="table" id="songs">
+    <tr>
+        <th>
+            Artist
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Album.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Youtube)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Album.Artist.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Album.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Youtube)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+            </td>
+
+            <td>
+                @*@Html.ActionLink("Details", "Details", new { id = trainer.ID }) &nbsp&nbsp&nbsp|*@
+                <button data-song-id="@item.ID" class="btn btn-link js-delete">Delete</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".js-delete").click(function (e) {
+                var button = $(e.target);
+                e.preventDefault();
+                if (confirm("Are you sure you want to delete this song?")) {
+                    $.ajax({
+                        url: "api/songs/" + button.attr("data-song-id"),
+                        method: "POST"
+                    }).done(function () {
+                        button.parents("tr").fadeOut(function () {
+                            $(this).remove();
+                        });
+                    }).fail(function () {
+                        alert("Something failed");
+                    });
+                }
+            });
+        });
+    </script>
+}
+
+
