@@ -1,0 +1,18 @@
+﻿@model Musify.Models.Artist
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="col-md-3">
+    <div>
+        <h4 class="text-center">@Model.Name</h4>
+    </div>
+    <img src="~/img/artistsImages/@Url.Content(Model.Thumbnail)" width="800" height="600" />
+</div>
+<hr />
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
