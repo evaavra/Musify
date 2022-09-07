@@ -17,7 +17,7 @@ namespace Musify.Areas.Admin.Controllers.api
             _context = new ApplicationDbContext();
         }
 
-        [HttpPost]
+        [HttpDelete]
         public IHttpActionResult Delete(int? id)
         {
             if (id == null)

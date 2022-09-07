@@ -17,14 +17,14 @@ namespace Musify.Areas.Admin.Controllers.api
             _context = new ApplicationDbContext();
         }
 
-        [HttpPost]
-        public IHttpActionResult DeleteAlbum(int? id)
+        [HttpDelete]
+        public IHttpActionResult Delete(int? id)
         {
             if (id == null)
             {
                 throw new ArgumentNullException(nameof(id));
             }
-            var song = _context.Songs.SingleOrDefault(s => s.ID == id);
+            var song = _context.Songs.Single(s => s.ID == id);
             if (song == null)
             {
                 return NotFound();

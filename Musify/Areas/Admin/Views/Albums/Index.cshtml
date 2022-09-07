@@ -63,13 +63,14 @@
 {
     <script>
         $(document).ready(function () {
+            var baseUrl = window.location.origin;
             $(".js-delete").click(function (e) {
                 var button = $(e.target);
                 e.preventDefault();
                 if (confirm("Are you sure you want to delete this album?")) {
                     $.ajax({
-                        url: "api/albums/" + button.attr("data-album-id"),
-                        method: "POST"
+                        url: baseUrl + "/Admin/api/Albums/" + button.attr("data-album-id"),
+                        method: "DELETE"
                     }).done(function () {
                         button.parents("tr").fadeOut(function () {
                             $(this).remove();
