@@ -16,7 +16,8 @@
   text-rendering: auto;
   line-height: 1; }
 
-.albums-photo {
+.albums-photo, 
+.artists-photo {
     width: 250px;
     height: 250px;
 }

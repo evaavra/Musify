@@ -181,6 +181,7 @@
     <Compile Include="Areas\Admin\BundleConfig.cs" />
     <Compile Include="Areas\Admin\Controllers\AlbumsController.cs" />
     <Compile Include="Areas\Admin\Controllers\api\AlbumsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\api\ArtistsController.cs" />
     <Compile Include="Areas\Admin\Controllers\api\SongsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ArtistsController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
@@ -236,8 +237,6 @@
     <Content Include="Areas\Admin\Views\Albums\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Albums\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Artists\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Artists\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Artists\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Artists\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Artists\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
