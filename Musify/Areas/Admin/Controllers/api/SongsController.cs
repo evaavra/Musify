@@ -8,11 +8,11 @@ using System.Web.Http;
 
 namespace Musify.Areas.Admin.Controllers.api
 {
-    public class SongsDeleteController : ApiController
+    public class SongsController : ApiController
     {
         private readonly ApplicationDbContext _context;
 
-        public SongsDeleteController()
+        public SongsController()
         {
             _context = new ApplicationDbContext();
         }
@@ -34,5 +34,6 @@ namespace Musify.Areas.Admin.Controllers.api
             _context.SaveChanges();
             return Ok();
         }
+        
     }
 }
