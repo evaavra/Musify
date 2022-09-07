@@ -59,7 +59,7 @@ namespace Musify.Areas.Admin.Controllers
                 else
                 {
                     artist.Thumbnail = Path.GetFileName(artist.ImageFile.FileName);
-                    string fullPath = Path.Combine(Server.MapPath("~/img/artistsImages"), artist.Thumbnail);
+                    string fullPath = Path.Combine(Server.MapPath("~/img"), artist.Thumbnail);
                     artist.ImageFile.SaveAs(fullPath);
                 }
                 _context.Artists.Add(artist);
@@ -97,7 +97,7 @@ namespace Musify.Areas.Admin.Controllers
                 else
                 {
                     artist.Thumbnail = Path.GetFileName(artist.ImageFile.FileName);
-                    string fullPath = Path.Combine(Server.MapPath("~/img/artistsImages"), artist.Thumbnail);
+                    string fullPath = Path.Combine(Server.MapPath("~/img"), artist.Thumbnail);
                     artist.ImageFile.SaveAs(fullPath);
                 }
 
