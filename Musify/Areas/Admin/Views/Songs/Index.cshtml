@@ -28,30 +28,34 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Album.Artist.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Album.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Youtube)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
-            </td>
+<tr>
 
-            <td>
-                @*@Html.ActionLink("Details", "Details", new { id = trainer.ID }) &nbsp&nbsp&nbsp|*@
-                <button data-song-id="@item.ID" class="btn btn-link js-delete">Delete</button>
-            </td>
-        </tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Album.Artist.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Album.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Youtube)
+    </td>
+    @*<td>
+        <img src="~/img/@Url.Content(item.Thumbnail)" class="albums-photo" />
+    </td>*@
+    <td>
+        @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+    </td>
+
+    <td>
+        @*@Html.ActionLink("Details", "Details", new { id = trainer.ID }) &nbsp&nbsp&nbsp|*@
+        <button data-song-id="@item.ID" class="btn btn-link js-delete">Delete</button>
+    </td>
+</tr>
     }
 
 </table>

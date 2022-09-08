@@ -16,7 +16,7 @@ namespace Musify.Models
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
 
-        public ICollection<PlaylistDetails> PlaylistDetails { get; set; }
+        public List<PlaylistDetails> PlaylistDetails { get; set; }
 
     }
 }

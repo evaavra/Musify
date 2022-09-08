@@ -189,6 +189,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PlaylistsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -199,6 +200,10 @@
     <Compile Include="Migrations\202209061852256_Models.cs" />
     <Compile Include="Migrations\202209061852256_Models.Designer.cs">
       <DependentUpon>202209061852256_Models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202209081157058_SongsImage.cs" />
+    <Compile Include="Migrations\202209081157058_SongsImage.Designer.cs">
+      <DependentUpon>202209081157058_SongsImage.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -305,6 +310,7 @@
     <Content Include="webfonts\fa-solid-900.ttf" />
     <Content Include="webfonts\fa-solid-900.woff" />
     <Content Include="webfonts\fa-solid-900.woff2" />
+    <Content Include="Views\Playlists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -329,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209061852256_Models.resx">
       <DependentUpon>202209061852256_Models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209081157058_SongsImage.resx">
+      <DependentUpon>202209081157058_SongsImage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

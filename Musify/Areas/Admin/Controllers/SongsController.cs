@@ -68,11 +68,14 @@ namespace Musify.Areas.Admin.Controllers
 
             if (song.ID == 0)
             {
+                var album = _context.Albums.SingleOrDefault(a => a.ID == song.AlbumId);
+                song.Thumbnail = album.Thumbnail;
                 _context.Songs.Add(song);
             }
             else
             {
-                var songInDb = _context.Songs.SingleOrDefault(s => s.ID == song.ID);
+                var songInDb = _context.Songs.Include(s => s.Album).SingleOrDefault(s => s.ID == song.ID);
+                songInDb.Thumbnail = songInDb.Album.Thumbnail;
                 songInDb.Title = song.Title;
                 songInDb.Youtube = song.Youtube;
                 songInDb.AlbumId = song.AlbumId;

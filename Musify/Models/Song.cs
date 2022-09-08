@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -15,6 +16,9 @@ namespace Musify.Models
         public string Title { get; set; }
 
         public string Youtube { get; set; }
+        public string Thumbnail { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase ImageFile { get; set; }
 
         [Display(Name = "Album")]
         public int AlbumId { get; set; }

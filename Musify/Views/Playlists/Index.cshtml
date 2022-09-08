@@ -1,0 +1,51 @@
+﻿@model List<Musify.Models.Playlist>
+@{
+    ViewBag.Title = "Index";
+}
+
+@Html.ActionLink("Create New Playlist", "Create")
+<div class="container">
+    <h2>My Playlists</h2>
+    <div class="row">
+
+
+        @foreach (var playlist in Model)
+         {
+            <div class="col-md-3">
+                <div>
+                    @Html.DisplayFor(modelplaylist => playlist.Name)
+                </div>
+                 
+                <div>
+                        <img src="~/img/@Url.Content(playlist.PlaylistDetails[1].Song.Thumbnail)" class="songs-photo" />
+                </div>
+                <div>@playlist.PlaylistDetails.Count songs</div>
+                @*<button></button>
+                <div hidden id="moresongs">*@
+                    @*@foreach (var pldet in playlist.PlaylistDetails)
+                    {
+                        <div>
+                            @Html.DisplayFor(modelpldet => pldet.Song.Title)
+                        </div>
+                        <div>
+                            <img src="~/img/@Url.Content(pldet.Song.Thumbnail)" class="songs-photo" />
+                        </div>
+                    }*@
+                @*</div>*@
+            </div>
+         }
+
+    </div>
+
+        
+</div>
+
+@section scripts
+{
+    
+    
+    
+    
+    
+    
+}

@@ -22,6 +22,11 @@
     height: 250px;
 }
 
+.songs-photo {
+    width: 100px;
+    height: 100px;
+}
+
 .fa-lg {
   font-size: 1.33333em;
   line-height: 0.75em;
