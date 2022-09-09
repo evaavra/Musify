@@ -216,8 +216,11 @@
     <Compile Include="Models\PlaylistDetails.cs" />
     <Compile Include="Models\Song.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AlbumRepository.cs" />
+    <Compile Include="Repositories\ArtistRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AlbumFormViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\SongFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

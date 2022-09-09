@@ -16,16 +16,34 @@
   text-rendering: auto;
   line-height: 1; }
 
-.albums-photo, 
-.artists-photo {
+.albums-photo {
     width: 250px;
     height: 250px;
+}
+
+.artists-photo {
+    width: 100px;
+    height: 100px;
 }
 
 .songs-photo {
     width: 100px;
     height: 100px;
 }
+
+.brighten img {
+    -webkit-filter: brightness(50%);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.brighten img:hover {
+    -webkit-filter: brightness(100%);
+}
+
 
 .fa-lg {
   font-size: 1.33333em;
