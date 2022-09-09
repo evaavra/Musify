@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Musify.ViewModels;
 
 namespace Musify.Controllers
 {
@@ -32,6 +33,16 @@ namespace Musify.Controllers
             }
 
             return View(userPlaylists);
+        }
+
+        public ActionResult Create()
+        {
+            var songs = _context.Songs.ToList();
+            var viewModel = new PlaylistNewViewModel()
+            {
+                Songs = songs
+            };
+            return View(viewModel);
         }
     }
 }

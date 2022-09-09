@@ -187,9 +187,13 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\SongsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\PlaylistsController.cs" />
+    <Compile Include="Controllers\api\PlaylistsDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlaylistsController.cs" />
+    <Compile Include="Dtos\PlaylistDetailsDto.cs" />
+    <Compile Include="Dtos\PlaylistDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -221,6 +225,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AlbumFormViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\PlaylistNewViewModel.cs" />
     <Compile Include="ViewModels\SongFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +319,7 @@
     <Content Include="webfonts\fa-solid-900.woff" />
     <Content Include="webfonts\fa-solid-900.woff2" />
     <Content Include="Views\Playlists\Index.cshtml" />
+    <Content Include="Views\Playlists\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

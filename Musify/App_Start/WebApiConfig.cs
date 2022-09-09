@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -22,6 +23,11 @@ namespace Musify
                routeTemplate: "Admin/api/{controller}/{id}",
                defaults: new { id = RouteParameter.Optional }
            );
+
+            //Camel Notation
+            var settings = config.Formatters.JsonFormatter.SerializerSettings;
+            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            settings.Formatting = Newtonsoft.Json.Formatting.Indented;
         }
     }
 }

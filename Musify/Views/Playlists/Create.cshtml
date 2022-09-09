@@ -1,0 +1,80 @@
+﻿@model Musify.ViewModels.PlaylistNewViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="container">
+    <div class="row">
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.PlaylistName)
+            @Html.TextBoxFor(m => m.PlaylistName, htmlAttributes: new { id = "playlistName" })
+            @Html.ValidationMessageFor(m => m.PlaylistName)
+        </div>
+        <button class="add-playlist" type="submit">Add playlist</button>
+
+    </div>
+    <div id="plname"></div>
+    <div hidden id="playlist-id"></div>
+
+    <div class="row">
+        @foreach (var song in Model.Songs)
+        {
+            <div class="col-md-3">
+
+                <div>
+                    @Html.DisplayFor(modelsong => song.Title)
+                </div>
+                <div>
+                    <img src="~/img/@Url.Content(song.Thumbnail)" class="songs-photo" />
+                </div>
+                <div>
+                    <button data-song-id="@song.ID" type="submit" class="js-add-to-playlist">Add to playlist</button>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".add-playlist").click(function (e) {
+                var playlistName = $("#playlistName").val();
+                e.preventDefault();
+                $.post("/api/playlists", { playlistName: playlistName })
+                .done(function (response) {
+                    alert("Went well")
+                    console.log(response);
+                    var id = response.id;
+                    console.log(id);
+                    $("#playlist-id").text(id);
+                    $("#plname").text(playlistName);
+                }).fail(function () {
+                    alert("Something Failed")
+                });
+
+
+            });
+
+            $(".js-add-to-playlist").click(function (e) {
+                var baseUrl = window.location.origin;
+                var button = $(e.target);
+                var songId = button.attr("data-song-id")
+                e.preventDefault();
+                var playlistId = $("#playlist-id").text();
+                console.log(playlistId);
+                console.log(songId);
+                $.post(baseUrl + "/api/playlistsDetails", { playlistId: playlistId, songId: songId })
+                    .done(function () {
+                        alert("Went well");
+                    }).fail(function () {
+                        alert("Something Failed")
+                    });
+
+            })
+        });
+    </script>
+
+} 
