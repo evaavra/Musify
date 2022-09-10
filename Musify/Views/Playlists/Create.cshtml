@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
 
-        <div class="form-group">
+        <div class="form-group" id="input">
             @Html.LabelFor(m => m.PlaylistName)
             @Html.TextBoxFor(m => m.PlaylistName, htmlAttributes: new { id = "playlistName" })
             @Html.ValidationMessageFor(m => m.PlaylistName)
@@ -53,7 +53,9 @@
                         var id = response.id;
                         console.log(id);
                         $("#playlist-id").text(id);
-                        $("#plname").text(playlistName);
+                        $("#plname").text("Playlist: " + playlistName);
+                        $("#input").hide();
+                        $(".add-playlist").hide();
                     }).fail(function () {
                         alert("Something Failed")
                     });
