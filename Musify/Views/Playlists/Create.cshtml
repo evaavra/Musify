@@ -11,7 +11,7 @@
             @Html.TextBoxFor(m => m.PlaylistName, htmlAttributes: new { id = "playlistName" })
             @Html.ValidationMessageFor(m => m.PlaylistName)
         </div>
-        <button class="add-playlist" type="submit">Add playlist</button>
+        <button class="add-playlist btn btn-primary" type="submit">Add playlist</button>
 
     </div>
     <div id="plname"></div>
@@ -29,7 +29,10 @@
                     <img src="~/img/@Url.Content(song.Thumbnail)" class="songs-photo" />
                 </div>
                 <div>
-                    <button data-song-id="@song.ID" type="submit" class="js-add-to-playlist">Add to playlist</button>
+                    <button nema="@song.ID" data-song-id="@song.ID" type="submit" class="js-add-to-playlist btn btn-primary">Add to playlist</button>
+                </div>
+                <div>
+                    <button hidden name="@song.ID" data-song-id="@song.ID" type="submit" class="js-remove-from-playlist btn btn-primary">Remove from playlist</button>
                 </div>
 
             </div>
@@ -43,17 +46,17 @@
             $(".add-playlist").click(function (e) {
                 var playlistName = $("#playlistName").val();
                 e.preventDefault();
-                $.post("/api/playlists", { playlistName: playlistName })
-                .done(function (response) {
-                    alert("Went well")
-                    console.log(response);
-                    var id = response.id;
-                    console.log(id);
-                    $("#playlist-id").text(id);
-                    $("#plname").text(playlistName);
-                }).fail(function () {
-                    alert("Something Failed")
-                });
+                $.post("/api/playlists/create", { playlistName: playlistName })
+                    .done(function (response) {
+                        alert("Went well")
+                        console.log(response);
+                        var id = response.id;
+                        console.log(id);
+                        $("#playlist-id").text(id);
+                        $("#plname").text(playlistName);
+                    }).fail(function () {
+                        alert("Something Failed")
+                    });
 
 
             });
@@ -66,11 +69,39 @@
                 var playlistId = $("#playlist-id").text();
                 console.log(playlistId);
                 console.log(songId);
+                console.log("hello")
                 $.post(baseUrl + "/api/playlistsDetails", { playlistId: playlistId, songId: songId })
-                    .done(function () {
+                    .done(function (response) {
                         alert("Went well");
+                        console.log(response);
+                        button.hide();
+                        $("button[name=" + songId + "]").removeAttr("hidden");
                     }).fail(function () {
-                        alert("Something Failed")
+                        alert("Something Failed");
+                    });
+
+            })
+
+            $(".js-remove-from-playlist").click(function (e) {
+                var button = $(e.target);
+                var songId = button.attr("data-song-id")
+                e.preventDefault();
+                var playlistId = $("#playlist-id").text();
+                console.log("Hellloo")
+                console.log(playlistId);
+                console.log(songId);
+                $.ajax({
+                    url: "/api/playlistsDetails/",
+                    data: { playlistId: playlistId, songId: songId },
+                    type: "DELETE"
+                })
+                    .done(function (response) {
+                        alert("Went well");
+                        console.log(response);
+                        button.attr("hidden", true);
+                        $("button[nema=" + songId + "]").show();
+                    }).fail(function () {
+                        alert("Something Failed");
                     });
 
             })

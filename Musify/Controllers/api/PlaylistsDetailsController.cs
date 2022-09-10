@@ -35,5 +35,20 @@ namespace Musify.Controllers.api
 
             return Ok();
         }
+
+        [HttpDelete]
+        public IHttpActionResult Delete([FromBody] PlaylistDetailsDto playlistdetailsDto)
+        {
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var playlistDetailsInDb = _context.PlaylistDetails.SingleOrDefault(p => p.PlaylistId == playlistdetailsDto.PlaylistId && p.SongId == playlistdetailsDto.SongId);
+
+            _context.PlaylistDetails.Remove(playlistDetailsInDb);
+            _context.SaveChanges();
+
+            return Ok();
+        }
     }
 }
