@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using Musify.ViewModels;
+using Musify.Repositories;
+using System.IO;
 
 namespace Musify.Areas.Admin.Controllers
 {
@@ -14,9 +16,11 @@ namespace Musify.Areas.Admin.Controllers
     public class SongsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly AlbumRepository _albumRepository;
         public SongsController()
         {
             _context = new ApplicationDbContext();
+            _albumRepository = new AlbumRepository();
         }
         // GET: Admin/Songs
         public ActionResult Index()
@@ -46,55 +50,42 @@ namespace Musify.Areas.Admin.Controllers
             return View(song);
         }
 
-
-
-        public ActionResult New()
+        [HttpGet]
+        public ActionResult Create()
         {
-            var albums = _context.Albums.ToList();
-            var viewmodel = new SongFormViewModel()
-            {
-                Song = new Song(),
-                Albums = albums
-            };
-
-            return View("SongForm", viewmodel);
+            ViewBag.AlbumId = new SelectList(_albumRepository.GetAll(), "ID", "Title");
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Song song)
+        public ActionResult Create(Song song)
         {
-            song.Youtube = $"https://www.youtube.com/embed/{song.Youtube};";
-
-            if (song.ID == 0)
+            if (ModelState.IsValid)
             {
-                var album = _context.Albums.SingleOrDefault(a => a.ID == song.AlbumId);
-                song.Thumbnail = album.Thumbnail;
-                _context.Songs.Add(song);
-            }
-            else
-            {
-                var songInDb = _context.Songs.Include(s => s.Album).SingleOrDefault(s => s.ID == song.ID);
-                songInDb.Thumbnail = songInDb.Album.Thumbnail;
-                songInDb.Title = song.Title;
-                songInDb.Youtube = song.Youtube;
-                songInDb.AlbumId = song.AlbumId;
-            }
-
-            if (!ModelState.IsValid)
-            {
-                var viewModel = new SongFormViewModel()
+                if (song.SongFile == null)
                 {
-                    Song = song,
-                    Albums = _context.Albums.ToList()
-                };
+                    song.SongPath = "NO SONG FILE";
+                }
+                else
+                {
+                    var album = _context.Albums.SingleOrDefault(a => a.ID == song.AlbumId);
+                    song.Thumbnail = album.Thumbnail;
 
-                return View("SongForm", viewModel);
+                    song.SongPath = Path.GetFileName(song.SongFile.FileName);
+                    string fullPath = Path.Combine(Server.MapPath("~/Songs/"), song.SongPath);
+                    song.SongFile.SaveAs(fullPath);
+                }
+
+                _context.Songs.Add(song);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
 
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Songs");
+            ViewBag.AlbumId = new SelectList(_albumRepository.GetAll(), "ID", "Title", song.AlbumId);
+            return View(song);
         }
+
 
         public ActionResult Edit(int? id)
         {

@@ -15,7 +15,9 @@ namespace Musify.Models
         [StringLength(255, MinimumLength = 3)]
         public string Title { get; set; }
 
-        public string Youtube { get; set; }
+        public string SongPath { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase SongFile { get; set; }
         public string Thumbnail { get; set; }
         [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }

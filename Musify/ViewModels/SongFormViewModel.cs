@@ -8,8 +8,8 @@ namespace Musify.ViewModels
 {
     public class SongFormViewModel
     {
-        public List<Album> Albums { get; set; }
         public Song Song { get; set; }
+        public List<Album> Albums { get; set; }
 
     }
 }
