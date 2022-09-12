@@ -191,7 +191,6 @@
     <Compile Include="Controllers\api\PlaylistsDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PayController.cs" />
     <Compile Include="Controllers\PlaylistsController.cs" />
     <Compile Include="Dtos\PlaylistDetailsDto.cs" />
     <Compile Include="Dtos\PlaylistDto.cs" />
@@ -218,6 +217,10 @@
     <Compile Include="Migrations\202209111440306_ChangeSongModel.Designer.cs">
       <DependentUpon>202209111440306_ChangeSongModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202209121326155_RemovePayment.cs" />
+    <Compile Include="Migrations\202209121326155_RemovePayment.Designer.cs">
+      <DependentUpon>202209121326155_RemovePayment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Album.cs" />
@@ -228,12 +231,9 @@
     <Compile Include="Models\Playlist.cs" />
     <Compile Include="Models\PlaylistDetails.cs" />
     <Compile Include="Models\Song.cs" />
-    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AlbumRepository.cs" />
     <Compile Include="Repositories\ArtistRepository.cs" />
-    <Compile Include="Services\IPayment.cs" />
-    <Compile Include="Services\Payment.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AlbumFormViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -331,8 +331,6 @@
     <Content Include="webfonts\fa-solid-900.woff2" />
     <Content Include="Views\Playlists\Index.cshtml" />
     <Content Include="Views\Playlists\Create.cshtml" />
-    <Content Include="Views\Pay\Complete.cshtml" />
-    <Content Include="Views\Pay\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -367,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209111440306_ChangeSongModel.resx">
       <DependentUpon>202209111440306_ChangeSongModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209121326155_RemovePayment.resx">
+      <DependentUpon>202209121326155_RemovePayment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
