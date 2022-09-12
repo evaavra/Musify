@@ -20,7 +20,6 @@ namespace Musify.Models
         public HttpPostedFileBase ImageFile { get; set; }
 
         public List<Album> Albums { get; set; }
-        public string Info { get; set; }
 
         public Artist()
         {

@@ -189,7 +189,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\PlaylistsController.cs" />
     <Compile Include="Controllers\api\PlaylistsDetailsController.cs" />
-    <Compile Include="Controllers\ArtistsDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PayController.cs" />
@@ -218,10 +217,6 @@
     <Compile Include="Migrations\202209111440306_ChangeSongModel.cs" />
     <Compile Include="Migrations\202209111440306_ChangeSongModel.Designer.cs">
       <DependentUpon>202209111440306_ChangeSongModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202209111804575_artist-info.cs" />
-    <Compile Include="Migrations\202209111804575_artist-info.Designer.cs">
-      <DependentUpon>202209111804575_artist-info.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -338,7 +333,6 @@
     <Content Include="Views\Playlists\Create.cshtml" />
     <Content Include="Views\Pay\Complete.cshtml" />
     <Content Include="Views\Pay\Index.cshtml" />
-    <Content Include="Views\ArtistsDetails\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -373,9 +367,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202209111440306_ChangeSongModel.resx">
       <DependentUpon>202209111440306_ChangeSongModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202209111804575_artist-info.resx">
-      <DependentUpon>202209111804575_artist-info.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

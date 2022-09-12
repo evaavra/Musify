@@ -9,13 +9,10 @@
     <div class="row brighten">
         @foreach (var artist in Model.Artists)
         {
-        <div class="col-md-2">
-            <a href="@Url.Action("Details", "ArtistsDetails", new { controller = "ArtistsDetails", id = artist.ID } )">
-                <img src="~/img/@Url.Content(artist.Thumbnail)" width="100" height="100" />
-            </a>
-            <h6 class="text-left">@artist.Name</h6>
-
-        </div>
+            <div class="col-md-2">
+                <img src="~/img/@Url.Content(artist.Thumbnail)" width="100" height="100"/>
+                <h6 class="text-left">@artist.Name</h6>
+            </div>
         }
 
     </div>
