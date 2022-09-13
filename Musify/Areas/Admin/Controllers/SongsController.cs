@@ -69,14 +69,12 @@ namespace Musify.Areas.Admin.Controllers
                 }
                 else
                 {
-                    var album = _context.Albums.SingleOrDefault(a => a.ID == song.AlbumId);
-                    song.Thumbnail = album.Thumbnail;
-
                     song.SongPath = Path.GetFileName(song.SongFile.FileName);
                     string fullPath = Path.Combine(Server.MapPath("~/Songs/"), song.SongPath);
                     song.SongFile.SaveAs(fullPath);
                 }
-
+                var album = _context.Albums.SingleOrDefault(a => a.ID == song.AlbumId);
+                song.Thumbnail = album.Thumbnail;
                 _context.Songs.Add(song);
                 _context.SaveChanges();
                 return RedirectToAction("Index");

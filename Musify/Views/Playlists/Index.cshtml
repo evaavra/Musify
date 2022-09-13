@@ -3,41 +3,52 @@
     ViewBag.Title = "Index";
 }
 
-@Html.ActionLink("Create New Playlist", "Create")
-<div class="container">
-    <h2>My Playlists</h2>
-    <div class="row">
+@if (ViewBag.User.HasPaid == false)
+{
+    <div class="container">
 
 
-        @foreach (var playlist in Model)
-        {
-            <div class="col-md-3">
-                <div>
-                    @Html.DisplayFor(modelplaylist => playlist.Name)
-                </div>
-                @if (playlist.PlaylistDetails.Count > 0)
-                {
+        <p>You have to pay to unlock this feature</p>
+        <button class="btn btn-default" id="myButton">Pay Now</button>
+    </div>
+}
+else
+{
+    @Html.ActionLink("Create New Playlist", "Create")
+    <div class="container">
+        <h2>My Playlists</h2>
+        <div class="row">
+
+
+            @foreach (var playlist in Model)
+            {
+                <div class="col-md-3">
                     <div>
-                        <img src="~/img/@Url.Content(playlist.PlaylistDetails[0].Song.Thumbnail)" class="songs-photo" />
+                        @Html.DisplayFor(modelplaylist => playlist.Name)
                     </div>
-                    <div>@playlist.PlaylistDetails.Count songs</div>
-                }
+                    @if (playlist.PlaylistDetails.Count > 0)
+                    {
+                        <div>
+                            <img src="~/img/@Url.Content(playlist.PlaylistDetails[0].Song.Thumbnail)" class="songs-photo" />
+                        </div>
+                        <div>@playlist.PlaylistDetails.Count songs</div>
+                    }
 
 
-            </div>
-        }
+                </div>
+            }
+
+        </div>
+
 
     </div>
+}
 
-
-</div>
-
-@section scripts
-{
-
-
-
-
-
+@section scripts{
+    <script>
+    document.getElementById("myButton").onclick = function () {
+        location.href = "https://localhost:44381/Payment/PaymentWithPaypal";
+    };
+    </script>
 
 }

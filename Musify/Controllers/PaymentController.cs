@@ -1,4 +1,5 @@
-﻿using Musify.Models;
+﻿using Microsoft.AspNet.Identity;
+using Musify.Models;
 using PayPal.Api;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,13 @@ namespace Musify.Controllers
 {
     public class PaymentController : Controller
     {
+        private ApplicationDbContext _context { get; set; }
+
+        public PaymentController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         // GET: Payment
         public ActionResult Index()
         {
@@ -70,7 +78,11 @@ namespace Musify.Controllers
             {
                 return View("FailureView");
             }
-            //on successful payment, show success page to user.  
+            //on successful payment, show success page to user.
+            var userId = User.Identity.GetUserId();
+            var user = _context.Users.SingleOrDefault(u => u.Id == userId);
+            user.HasPaid = true;
+            _context.SaveChanges();
             return View("SuccessView");
         }
         private PayPal.Api.Payment payment;

@@ -31,7 +31,7 @@ namespace Musify.Controllers
                     userPlaylists.Add(pl);
                 }
             }
-
+            ViewBag.User = _context.Users.SingleOrDefault(u => u.Id == userId);
             return View(userPlaylists);
         }
 
