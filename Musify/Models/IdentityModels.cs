@@ -27,6 +27,8 @@ namespace Musify.Models
         public DbSet<Playlist> Playlists { get; set; }
         public DbSet<PlaylistDetails> PlaylistDetails { get; set; }
 
+        
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

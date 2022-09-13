@@ -55,6 +55,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -191,6 +194,7 @@
     <Compile Include="Controllers\api\PlaylistsDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PlaylistsController.cs" />
     <Compile Include="Dtos\PlaylistDetailsDto.cs" />
     <Compile Include="Dtos\PlaylistDto.cs" />
@@ -228,6 +232,7 @@
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PaypalConfiguration.cs" />
     <Compile Include="Models\Playlist.cs" />
     <Compile Include="Models\PlaylistDetails.cs" />
     <Compile Include="Models\Song.cs" />
@@ -331,6 +336,8 @@
     <Content Include="webfonts\fa-solid-900.woff2" />
     <Content Include="Views\Playlists\Index.cshtml" />
     <Content Include="Views\Playlists\Create.cshtml" />
+    <Content Include="Views\Payment\SuccessView.cshtml" />
+    <Content Include="Views\Payment\FailureView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
