@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using Musify.ViewModels;
+using System.Net;
 
 namespace Musify.Controllers
 {
@@ -33,6 +34,25 @@ namespace Musify.Controllers
             }
             ViewBag.User = _context.Users.SingleOrDefault(u => u.Id == userId);
             return View(userPlaylists);
+        }
+
+        public ActionResult ListenToPlaylist(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return RedirectToAction("index");
+            }
+            var playlist = _context
+                .Playlists
+                .Include(p => p.PlaylistDetails.Select(pl => pl.Song))
+                .SingleOrDefault(p => p.Id == id);
+            if (playlist == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(playlist);
         }
 
         public ActionResult Create()

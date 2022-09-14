@@ -262,6 +262,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="img\na_image.jpg" />
     <Content Include="img\undraw_profile_2.svg" />
+    <Content Include="Scripts\audioPlayer.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -342,6 +343,7 @@
     <Content Include="Views\Playlists\Create.cshtml" />
     <Content Include="Views\Payment\SuccessView.cshtml" />
     <Content Include="Views\Payment\FailureView.cshtml" />
+    <Content Include="Views\Playlists\ListenToPlaylist.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

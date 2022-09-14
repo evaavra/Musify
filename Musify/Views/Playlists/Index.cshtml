@@ -14,6 +14,7 @@
 }
 else
 {
+    <button hidden class="btn btn-default" id="myButton">Pay Now</button>
     @Html.ActionLink("Create New Playlist", "Create")
     <div class="container">
         <h2>My Playlists</h2>
@@ -29,7 +30,7 @@ else
                     @if (playlist.PlaylistDetails.Count > 0)
                     {
                         <div>
-                            <img src="~/img/@Url.Content(playlist.PlaylistDetails[0].Song.Thumbnail)" class="songs-photo" />
+                            <img src="~/img/@Url.Content(playlist.PlaylistDetails[0].Song.Thumbnail)" class="songs-photo myImage" plId="@playlist.Id" />
                         </div>
                         <div>@playlist.PlaylistDetails.Count songs</div>
                     }
@@ -48,7 +49,15 @@ else
     <script>
     document.getElementById("myButton").onclick = function () {
         location.href = "https://localhost:44381/Payment/PaymentWithPaypal";
-    };
+        };
+        $(document).ready(function () {
+            var baseUrl = window.location.origin;
+            $(".myImage").click(function (e) {
+                var photo = $(e.target);
+                var playlistId = photo.attr("plId");
+                location.href = "https://localhost:44381/Playlists/ListenToPlaylist/" + playlistId;
+            });
+        });
     </script>
 
 }

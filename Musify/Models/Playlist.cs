@@ -8,6 +8,10 @@ namespace Musify.Models
 {
     public class Playlist
     {
+        public Playlist()
+        {
+            PlaylistDetails = new List<PlaylistDetails>();
+        }
         public int Id { get; set; }
         [Required(ErrorMessage = "Playlist Name is required")]
         [StringLength(255)]
