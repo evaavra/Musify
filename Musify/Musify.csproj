@@ -192,7 +192,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\PlaylistsController.cs" />
     <Compile Include="Controllers\api\PlaylistsDetailsController.cs" />
-    <Compile Include="Controllers\ArtistsDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
@@ -345,7 +344,6 @@
     <Content Include="Views\Payment\SuccessView.cshtml" />
     <Content Include="Views\Payment\FailureView.cshtml" />
     <Content Include="Views\Playlists\ListenToPlaylist.cshtml" />
-    <Content Include="Views\ArtistsDetails\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
