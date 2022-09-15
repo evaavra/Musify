@@ -11,6 +11,7 @@ using System.Net;
 
 namespace Musify.Controllers
 {
+    [Authorize]
     public class PlaylistsController : Controller
     {
         private ApplicationDbContext _context;

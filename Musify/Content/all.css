@@ -44,6 +44,13 @@
     color:blue;
 }
 
+#cent-playl {
+    margin: auto;
+    width: 50%;
+    background-color: darkslategray;
+    padding: 50px;
+}
+
 .brighten img {
     -webkit-filter: brightness(50%);
     -webkit-transition: all 1s ease;
