@@ -21,7 +21,7 @@ namespace Musify.Controllers
         // GET: Payment
         public ActionResult Index()
         {
-            return View();
+            return View("Payment");
         }
 
         public ActionResult PaymentWithPaypal(string Cancel = null)
@@ -157,5 +157,6 @@ namespace Musify.Controllers
             // Create a payment using a APIContext  
             return this.payment.Create(apiContext);
         }
+
     }
 }
