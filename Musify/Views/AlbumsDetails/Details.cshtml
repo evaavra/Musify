@@ -1,0 +1,68 @@
+﻿@model Musify.Models.Album
+@{
+    ViewBag.Title = "ListenToPlaylist";
+}
+
+
+<div id="cent-playl" class="container">
+    <h2>@Model.Title</h2>
+    @if (Model.Songs.Count > 0)
+    {
+        <div class="row">
+            <div class="col">
+                <img src="~/img/@Url.Content(Model.Thumbnail)" width="300" height="300" />
+                @*<div class="row">*@
+                <audio src="" type="audio/mpeg" controls id="audioPlayer">
+                    Sorry your browser doesn 't support html5!
+                    @*<source src="~/Songs/@item.Song.SongPath" type="audio/mpeg" />*@
+                </audio>
+                @*</div>*@
+                @*<div class="row">*@
+                <a href="#" onclick="playlist.prevTrack();">Prev Track</a>&nbsp;
+                <a href="#" onclick="playlist.nextTrack();">Next Track</a>&nbsp;
+                <a href="#" onclick="playlist.prevTrack();">Toggle Shuffle</a>
+                @*</div>*@
+            </div>
+            <br />
+            <div class="col">
+
+                <ul id="playlist">
+                    @foreach (var item in Model.Songs)
+                    {
+                        <li><a href="~/Songs/@item.SongPath">@item.Title</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+
+
+</div>
+
+<script src="~/Scripts/audioPlayer.js"></script>
+@section scripts{
+
+    <script>
+
+        /*
+Default constructor configuration:
+        autoplay: false,
+        shuffle: false,
+        loop: false,
+        playerId: "audioPlayer",
+        playlistId: "playlist",
+        currentClass: "current-song"
+
+
+*/
+
+        // loads the audio player
+        var config = {
+            autoplay: true,
+            loop: true,
+            shuffle: true
+        };
+        var playlist = new AudioPlaylist();
+
+    </script>
+}

@@ -32,10 +32,12 @@
     <div class="row brighten">
         @foreach (var album in Model.Albums)
         {
-            <div class="col-md-2">
-                <img src="~/img/@Url.Content(album.Thumbnail)" width="100" height="100"/>
+        <div class="col-md-2">
+            <a href="@Url.Action("Details", "AlbumsDetails", new { controller = "AlbumsDetails", id = album.ID } )">
+                <img src="~/img/@Url.Content(album.Thumbnail)"  width="200" height="200" style="border-radius:10%" />
+            </a>
                 <h6 class="text-left">@album.Title</h6>
-            </div>
+        </div>
         }
 
     </div>
