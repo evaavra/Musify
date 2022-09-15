@@ -21,7 +21,20 @@ namespace Musify.Areas.Admin.Controllers
         // GET: Admin/Dashboard
         public ActionResult Index()
         {
-            return View();
+            var users = _context.Users.ToList();
+            var usersHavePaid = users.Where(u => u.HasPaid == true).ToList();
+            var usersHaveNotPaid = users.Where(u => u.HasPaid == false).ToList();
+
+            var viewModel = new AllDataViewModel()
+            {
+                Artists = _context.Artists.ToList(),
+                Albums = _context.Albums.ToList(),
+                Songs = _context.Songs.ToList(),
+                Users = users,
+                UsersHavePaid = usersHavePaid,
+                UsersHaveNotPaid = usersHaveNotPaid
+            };
+            return View(viewModel);
         }
     }
 }

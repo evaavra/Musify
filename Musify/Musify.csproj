@@ -246,6 +246,7 @@
     <Compile Include="Repositories\ArtistRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AlbumFormViewModel.cs" />
+    <Compile Include="ViewModels\AllDataViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PlaylistNewViewModel.cs" />
     <Compile Include="ViewModels\SongFormViewModel.cs" />

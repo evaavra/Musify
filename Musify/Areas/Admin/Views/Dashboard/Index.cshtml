@@ -1,6 +1,62 @@
-﻿
+﻿@model Musify.ViewModels.AllDataViewModel
 @{
     ViewBag.Title = "Index";
+}
+<div class="lists" hidden artists-count="@Model.Artists.Count()" albums-count="@Model.Albums.Count()"
+     songs-count="@Model.Songs.Count()" users-count="@Model.Users.Count()"
+     users-havepaid-count="@Model.UsersHavePaid.Count()" users-havenotpaid-count="@Model.UsersHaveNotPaid.Count()"></div>
+<div id="myChart" style="width:50%; max-width:400px; height:500px;"></div>
+<div id="myPieChart" style="width:50%; max-width:400px; height:500px;">
+</div>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+@section scripts{
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawChart2);
+
+        function drawChart() {
+            var artists = parseInt($(".lists").attr("artists-count"));
+            var albums = parseInt($(".lists").attr("albums-count"));
+            var songs = parseInt($(".lists").attr("songs-count"));
+            var users = parseInt($(".lists").attr("users-count"));
+            console.log(artists)
+            var data = google.visualization.arrayToDataTable([
+                ['ffff', 'Mhl'],
+                ['Artists', artists],
+                ['Albums', albums],
+                ['Songs', songs],
+                ['Users', users]
+            ]);
+
+            var options = {
+                title: 'General Statistics'
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('myChart'));
+            chart.draw(data, options);
+        }
+
+        function drawChart2() {
+            var usersPaid = parseInt($(".lists").attr("users-havepaid-count"));
+            var usersNotPaid = parseInt($(".lists").attr("users-havenotpaid-count"));
+            var data = google.visualization.arrayToDataTable([
+                ['Contry', 'Mhl'],
+                ['Users who have paid', usersPaid],
+                ['Users who have not paid', usersNotPaid]
+            ]);
+
+            var options = {
+                title: 'Users',
+                is3D: true
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+            chart.draw(data, options);
+        }
+    </script>
 }
 
 
