@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "MessageForPayment";
+}
+
+<div class="container">
+
+
+    <p>You have to pay to unlock this feature</p>
+    <button class="btn btn-default" id="myButton">Pay Now</button>
+</div>
+
+@section scripts{
+    <script>
+        document.getElementById("myButton").onclick = function () {
+            location.href = "https://localhost:44381/Payment/PaymentWithPaypal";
+        };
+    </script>    
+    
+}

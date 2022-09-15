@@ -24,6 +24,11 @@ namespace Musify.Controllers
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
+            var user = _context.Users.SingleOrDefault(u => u.Id == userId);
+            if(user.HasPaid == false)
+            {
+                return View("MessageForPayment");
+            }
             var playlists = _context.Playlists.Include(p => p.PlaylistDetails.Select(pl => pl.Song));
             var userPlaylists = new List<Playlist>();
             foreach (var pl in playlists)
@@ -33,7 +38,7 @@ namespace Musify.Controllers
                     userPlaylists.Add(pl);
                 }
             }
-            ViewBag.User = _context.Users.SingleOrDefault(u => u.Id == userId);
+            
             return View(userPlaylists);
         }
 

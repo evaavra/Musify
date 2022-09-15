@@ -46,7 +46,7 @@
             $(".add-playlist").click(function (e) {
                 var playlistName = $("#playlistName").val();
                 e.preventDefault();
-                $.post("/api/playlists/create", { playlistName: playlistName })
+                $.post("/api/playlists/create", { name: playlistName })
                     .done(function (response) {
                         alert("Went well")
                         console.log(response);

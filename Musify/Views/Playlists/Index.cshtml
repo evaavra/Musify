@@ -3,30 +3,22 @@
     ViewBag.Title = "Index";
 }
 
-@if (ViewBag.User.HasPaid == false)
-{
     <div class="container">
 
-
-        <p>You have to pay to unlock this feature</p>
-        <button class="btn btn-default" id="myButton">Pay Now</button>
-    </div>
-}
-else
-{
-    <button hidden class="btn btn-default" id="myButton">Pay Now</button>
-    @Html.ActionLink("Create New Playlist", "Create")
-    <div class="container">
+        @Html.ActionLink("Create New Playlist", "Create")
+        <br />
+        <br />
         <h2>My Playlists</h2>
+
         <div class="row">
 
 
             @foreach (var playlist in Model)
             {
-                <div class="col-md-3">
-                    <div>
+                <section class="col-md-3">
+                    <h4>
                         @Html.DisplayFor(modelplaylist => playlist.Name)
-                    </div>
+                    </h4>
                     @if (playlist.PlaylistDetails.Count > 0)
                     {
                         <div>
@@ -34,22 +26,20 @@ else
                         </div>
                         <div>@playlist.PlaylistDetails.Count songs</div>
                     }
+                    <button class="delete-pl" data-pl-id="@playlist.Id">Delete</button>
 
 
-                </div>
+                </section>
             }
 
         </div>
 
 
     </div>
-}
+
 
 @section scripts{
     <script>
-    document.getElementById("myButton").onclick = function () {
-        location.href = "https://localhost:44381/Payment/PaymentWithPaypal";
-        };
         $(document).ready(function () {
             var baseUrl = window.location.origin;
             $(".myImage").click(function (e) {
@@ -57,6 +47,24 @@ else
                 var playlistId = photo.attr("plId");
                 location.href = "https://localhost:44381/Playlists/ListenToPlaylist/" + playlistId;
             });
+            $(".delete-pl").click(function (e) {
+                var button = $(e.target);
+                e.preventDefault();
+
+                if (confirm("Are you sure you want to delete this playlist?")) {
+                    $.ajax({
+                        url: "/api/playlists/" + button.attr("data-pl-id"),
+                        method: "DELETE"
+                    }).done(function () {
+                        button.parents("section").fadeOut(function () {
+                            $(this).remove();
+                        });
+
+                    }).fail(function () {
+                        alert("Something Failed");
+                    });
+                }
+            })
         });
     </script>
 

@@ -29,7 +29,7 @@ namespace Musify.Controllers.api
 
             var playlist = new Playlist()
             {
-                Name = playlistDto.PlaylistName,
+                Name = playlistDto.Name,
                 UserId = userId
             };
             _context.Playlists.Add(playlist);
@@ -38,7 +38,21 @@ namespace Musify.Controllers.api
             return Ok(playlist);
         }
 
-        
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
+        {
+            var playlist = _context.Playlists.SingleOrDefault(p => p.Id == id);
+
+            if (playlist == null)
+                return NotFound();
+
+            _context.Playlists.Remove(playlist);
+            _context.SaveChanges();
+
+            return Ok(id);
+        }
+
+
     }
 }
 

@@ -7,6 +7,8 @@ namespace Musify.Dtos
 {
     public class PlaylistDto
     {
-        public string PlaylistName { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+
     }
 }
