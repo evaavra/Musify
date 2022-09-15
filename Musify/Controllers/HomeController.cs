@@ -46,5 +46,12 @@ namespace Musify.Controllers
 
             return View();
         }
+
+        public ActionResult Chat()
+        {
+            ViewBag.Message = "Your chat page";
+
+            return View();
+        }
     }
 }

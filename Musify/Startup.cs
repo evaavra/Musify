@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Musify.Models;
 using Owin;
@@ -13,6 +14,11 @@ namespace Musify
         {
             ConfigureAuth(app);
             createRolesandUsers();
+
+            var hubConfiguration = new HubConfiguration();
+            hubConfiguration.EnableDetailedErrors = true;
+
+            app.MapSignalR();
         }
 
         // In this method we will create default User roles and Admin user for login    

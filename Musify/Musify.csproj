@@ -51,6 +51,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.3\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -64,6 +70,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -203,6 +210,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Migrations\202209061832145_Initial.cs" />
     <Compile Include="Migrations\202209061832145_Initial.Designer.cs">
       <DependentUpon>202209061832145_Initial.cs</DependentUpon>
@@ -280,6 +288,8 @@
     <Content Include="Areas\Admin\Views\Artists\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Artists\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <Content Include="Scripts\jquery.signalR-2.4.3.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.3.min.js" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
     <Content Include="webfonts\fa-solid-900.svg" />
@@ -354,6 +364,7 @@
     <Content Include="Views\Playlists\MessageForPayment.cshtml" />
     <Content Include="Views\AlbumsDetails\Details.cshtml" />
     <Content Include="Views\AlbumsDetails\Index.cshtml" />
+    <Content Include="Views\Home\Chat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

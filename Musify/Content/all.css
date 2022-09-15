@@ -52,6 +52,22 @@
     padding: 50px;
 }
 
+#chatform #discussion .right {
+    text-align: right;
+}
+
+#chatform {
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+    padding: 10px;
+    background-color: #ebebeb;
+}
+
+/*#chatform input:first-of-type{
+     max-width: 100%;
+}*/
+
 .brighten img {
     -webkit-filter: brightness(50%);
     -webkit-transition: all 1s ease;
