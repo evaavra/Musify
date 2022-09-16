@@ -257,6 +257,7 @@
     <Compile Include="ViewModels\AlbumFormViewModel.cs" />
     <Compile Include="ViewModels\AlbumsIndexViewModel.cs" />
     <Compile Include="ViewModels\AllDataViewModel.cs" />
+    <Compile Include="ViewModels\ArtistsIndexViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PlaylistNewViewModel.cs" />
     <Compile Include="ViewModels\SongFormViewModel.cs" />
@@ -365,6 +366,7 @@
     <Content Include="Views\AlbumsDetails\Details.cshtml" />
     <Content Include="Views\AlbumsDetails\Index.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
+    <Content Include="Views\ArtistsDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

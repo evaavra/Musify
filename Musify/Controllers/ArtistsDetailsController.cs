@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Musify.ViewModels;
 
 namespace Musify.Controllers
 {
@@ -22,8 +23,13 @@ namespace Musify.Controllers
         // GET: ArtistsDetails
         public ActionResult Index()
         {
-            return View();
+            var viewmodel = new ArtistsIndexViewModel()
+            {
+                Artists = _context.Artists.Include(a => a.Albums).ToList()
+            };
+            return View(viewmodel);
         }
+
         public ActionResult Details(int? id)
         {
             if (id == null)

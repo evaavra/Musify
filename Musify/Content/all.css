@@ -68,6 +68,8 @@
      max-width: 100%;
 }*/
 
+
+
 .brighten img {
     -webkit-filter: brightness(50%);
     -webkit-transition: all 1s ease;
@@ -81,6 +83,13 @@
     -webkit-filter: brightness(100%);
 }
 
+#artistAudio {
+    border-radius: 90px;
+    width: 100px;
+    width: 100px;
+    height: 35px;
+    float: right;
+}
 
 .fa-lg {
   font-size: 1.33333em;
