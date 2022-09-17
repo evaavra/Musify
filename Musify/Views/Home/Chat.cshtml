@@ -10,11 +10,14 @@
         <table id="discussion">
         </table>
         <div id="bubbles" hidden>someone is writing...</div>
-        <input type="text" id="message" />
-        <input type="button" id="sendmessage" value="Send" />
+        <div id="inputs">
+            <input type="text" id="message" />
+            <input type="button" id="sendmessage" value="Send" />
+        </div>
         <input type="hidden" id="displayname" />
     </div>
 </div>
+
 @section scripts {
     <!--Script references. -->
     <!--The jQuery library is required and is referenced by default in _Layout.cshtml. -->
@@ -39,10 +42,10 @@
                     + '</strong>: ' + htmlEncode(message) + '</td></tr>');
             };
             chat.client.showWriting = function () {
-                $('#bubbles').show();
+                $('#bubbles').removeAttr("hidden");
             };
             chat.client.stopWriting = function () {
-                $('#bubbles').hide();
+                $('#bubbles').attr("hidden", true);
             };
             // Get the user name and store it to prepend to messages.
             $('#displayname').val(prompt('Enter your name:', ''));
@@ -51,6 +54,7 @@
             // Start the connection.
             $.connection.hub.start().done(function () {
                 $("#message").keyup(function () {
+                    console.log("HEllo");
                     chat.server.write();
                 });
                 $("#message").keydown(function () {

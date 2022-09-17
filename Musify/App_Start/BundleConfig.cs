@@ -9,7 +9,12 @@ namespace Musify
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                         "~/Scripts/jquery.min.js",
+                        "~/Scripts/jquery.easing.min.js",
+                        "~/Scripts/sb-admin-2.min.js",
+                        "~/Scripts/Chart.min.js",
+                        "~/Scripts/chart-area-demo.js",
+                        "~/Scripts/chart-pie-demo.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -20,11 +25,11 @@ namespace Musify
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.bundle.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/all.css",
+                      "~/Content/sb-admin-2.css"));
         }
     }
 }

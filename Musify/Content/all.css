@@ -63,7 +63,7 @@
 
 #chatform {
     margin: 0 auto;
-    width: 50%;
+    width: 30%;
     height: 50%;
     padding: 10px;
     background-color: #ebebeb;
@@ -72,6 +72,19 @@
 /*#chatform input:first-of-type{
      max-width: 100%;
 }*/
+
+#discussion {
+    width: 75%;
+}
+
+#inputs #message{
+    width: 75%
+}
+
+#inputs #sendmessage {
+    width: 23%
+}
+
 
 
 
