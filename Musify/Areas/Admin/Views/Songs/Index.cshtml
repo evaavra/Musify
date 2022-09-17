@@ -4,68 +4,74 @@
     ViewBag.Title = "Index";
 }
 
-<h2></h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table" id="songs">
-    <tr>
-        <th>
-            Artist
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Album.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SongPath)
-        </th>
-        <th></th>
-    </tr>
+<div class="container">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table" id="songs">
+        <thead>
+            <tr>
+                <th>
+                    Artist
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Album.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SongPath)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Album.Artist.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Album.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        <audio controls>
+                            <source src="~/Songs/@item.SongPath" type="audio/mpeg" />
+                        </audio>
+                    </td>
+                    @*<td>
+                            <img src="~/img/@Url.Content(item.Thumbnail)" class="albums-photo" />
+                        </td>*@
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Album.Artist.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Album.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                <audio controls>
-                    <source src="~/Songs/@item.SongPath" type="audio/mpeg"/>
-                </audio>
-            </td>
-            @*<td>
-                    <img src="~/img/@Url.Content(item.Thumbnail)" class="albums-photo" />
-                </td>*@
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
-            </td>
-
-            <td>
-                @*@Html.ActionLink("Details", "Details", new { id = trainer.ID }) &nbsp&nbsp&nbsp|*@
-                <button data-song-id="@item.ID" class="btn btn-link js-delete">Delete</button>
-            </td>
-        </tr>
-    }
-
-</table>
+                    <td>
+                        @*@Html.ActionLink("Details", "Details", new { id = trainer.ID }) &nbsp&nbsp&nbsp|*@
+                        <button data-song-id="@item.ID" class="btn btn-link js-delete">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @section scripts
 {
+
     <script>
         $(document).ready(function () {
+            $("#songs").DataTable();
             var baseUrl = window.location.origin;
             console.log(window.location.origin);
             $(".js-delete").click(function (e) {

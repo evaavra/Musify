@@ -4,43 +4,48 @@
     ViewBag.Title = "Index";
 }
 
+<div class="container">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table" id="artists">
+        <thead>
+            <tr>
+                <th>
+                    Artist
+                </th>
+                <th>
+                    Image
+                </th>
+                <th></th>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Artist
-        </th>
-        <th>
-            Image
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var artist in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => artist.Name)
-            </td>
-            <td>
-                <img src="~/img/@Url.Content(artist.Thumbnail)" class="artists-photo" />
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = artist.ID }) |
-                <button data-artist-id="@artist.ID" class="btn btn-link js-delete">Delete</button>
-            </td>
-        </tr>
-    }
-
-</table>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var artist in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => artist.Name)
+                    </td>
+                    <td>
+                        <img src="~/img/@Url.Content(artist.Thumbnail)" class="artists-photo" />
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = artist.ID }) |
+                        <button data-artist-id="@artist.ID" class="btn btn-link js-delete">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
+            $("#artists").DataTable();
             var baseUrl = window.location.origin;
             console.log(window.location.origin);
             $(".js-delete").click(function (e) {

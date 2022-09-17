@@ -4,65 +4,65 @@
     ViewBag.Title = "Index";
 }
 
-@*<h2>Albums</h2>*@
-
-@Html.ActionLink("Create New", "Create")
-<br />
-<br />
-<table class="table" id="albums">
-    <thead>
-        <tr>
-            <th>
-                Title
-            </th>
-            <th>
-                Artist
-            </th>
-            <th>
-                Genre
-            </th>
-            <th>
-                Release Date
-            </th>
-            <th>
-                Image
-            </th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var album in Model)
-        {
+<div class="container">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table" id="albums">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelalbum => album.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelalbum => album.Artist.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelalbum => album.Genre.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelalbum => album.ReleaseDate)
-                </td>
-                <td>
-                    <img src="~/img/@Url.Content(album.Thumbnail)" class="albums-photo" />
-                </td>
-                <td>
-                    @*@Html.ActionLink("Details", "Details", new { id = trainer.ID }) &nbsp&nbsp&nbsp|*@
-                    <button data-album-id="@album.ID" class="btn btn-link js-delete">Delete</button>
-                </td>
-
+                <th>
+                    Title
+                </th>
+                <th>
+                    Artist
+                </th>
+                <th>
+                    Genre
+                </th>
+                <th>
+                    Release Date
+                </th>
+                <th>
+                    Image
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var album in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => album.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => album.Artist.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => album.Genre.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => album.ReleaseDate)
+                    </td>
+                    <td>
+                        <img src="~/img/@Url.Content(album.Thumbnail)" class="albums-photo" />
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = album.ID }) |
+                        <button data-album-id="@album.ID" class="btn btn-link js-delete">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
+            $("#albums").DataTable();
             var baseUrl = window.location.origin;
             $(".js-delete").click(function (e) {
                 var button = $(e.target);
@@ -84,3 +84,4 @@
         });
     </script>
 }
+

@@ -29,12 +29,17 @@ namespace Musify.Areas.Admin
 
             //bootstrap
             bundles.Add(new ScriptBundle("~/bundles/bootstrap2").Include(
-                      "~/Scripts/bootstrap.bundle.min.js"));
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap.bundle.min.js",
+                      "~/Scripts/jquery.dataTables.js",
+                      "~/Scripts/dataTables.bootstrap4.js"));
 
             //css
             bundles.Add(new StyleBundle("~/Content/css2").Include(
+                      //"~/Content/bootstrap.css",
                       "~/Content/all.css",
-                      "~/Content/sb-admin-2.css"));
+                      "~/Content/sb-admin-2.css",
+                       "~/Content/dataTables.bootstrap4.css"));
         }
     }
 }
