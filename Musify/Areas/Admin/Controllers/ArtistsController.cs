@@ -1,4 +1,7 @@
-﻿using Musify.Models;
+﻿using Musify.Interfaces;
+using Musify.Models;
+using Musify.Persistence;
+using Musify.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,32 +16,17 @@ namespace Musify.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class ArtistsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ArtistsController()
+        public ArtistsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         public ActionResult Index()
         {
-            var artists = _context.Artists.ToList();
+            var artists = _unitOfWork.Artists.GetAll().ToList();
             return View(artists);
-        }
-
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-            Artist artist = _context.Artists.SingleOrDefault(a => a.ID == id);
-
-            if (artist == null)
-            {
-                return HttpNotFound();
-            }
-            return View(artist);
         }
 
         public ActionResult Create()
@@ -62,8 +50,10 @@ namespace Musify.Areas.Admin.Controllers
                     string fullPath = Path.Combine(Server.MapPath("~/img"), artist.Thumbnail);
                     artist.ImageFile.SaveAs(fullPath);
                 }
-                _context.Artists.Add(artist);
-                _context.SaveChanges();
+
+                _unitOfWork.Artists.Create(artist);
+                _unitOfWork.Complete();
+
                 return RedirectToAction("Index");
             }
 
@@ -72,11 +62,8 @@ namespace Musify.Areas.Admin.Controllers
 
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Artist artist = _context.Artists.Find(id);
+            var artist = _unitOfWork.Artists.GetById(id);
+
             if (artist == null)
             {
                 return HttpNotFound();
@@ -101,44 +88,12 @@ namespace Musify.Areas.Admin.Controllers
                     artist.ImageFile.SaveAs(fullPath);
                 }
 
-                _context.Entry(artist).State = EntityState.Modified;
-                _context.SaveChanges();
+                _unitOfWork.Artists.Update(artist);
+                _unitOfWork.Complete();
+
                 return RedirectToAction("Index");
             }
             return View(artist);
-        }
-
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Artist artist = _context.Artists.Find(id);
-            if (artist == null)
-            {
-                return HttpNotFound();
-            }
-            return View(artist);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Artist artist = _context.Artists.Find(id);
-            _context.Artists.Remove(artist);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

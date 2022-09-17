@@ -9,39 +9,31 @@ using System.Data.Entity;
 using Musify.ViewModels;
 using Musify.Repositories;
 using System.IO;
+using Musify.Interfaces;
 
 namespace Musify.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class SongsController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly AlbumRepository _albumRepository;
-        public SongsController()
+        private readonly IUnitOfWork _unitOfWork;
+
+        public SongsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
-            _albumRepository = new AlbumRepository();
+            _unitOfWork = unitOfWork;
         }
-        // GET: Admin/Songs
+
+
         public ActionResult Index()
         {
-            var songs = _context
-                .Songs
-                .Include(s => s.Album.Artist)
-                .ToList();
+            var songs = _unitOfWork.Songs.GetAllWithAlbumAndArtist().ToList();
+
             return View(songs);
         }
 
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var song = _context
-                .Songs
-                .Include(s => s.Album.Artist)
-                .SingleOrDefault(s => s.ID == id);
+            Song song = _unitOfWork.Songs.GetByIdWithAlbumAndArtist(id);
 
             if (song == null)
             {
@@ -53,7 +45,7 @@ namespace Musify.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.AlbumId = new SelectList(_albumRepository.GetAll(), "ID", "Title");
+            ViewBag.AlbumId = new SelectList(_unitOfWork.Albums.GetAll(), "ID", "Title");
             return View();
         }
 
@@ -73,48 +65,40 @@ namespace Musify.Areas.Admin.Controllers
                     string fullPath = Path.Combine(Server.MapPath("~/Songs/"), song.SongPath);
                     song.SongFile.SaveAs(fullPath);
                 }
-                var album = _context.Albums.SingleOrDefault(a => a.ID == song.AlbumId);
+
+                Album album = _unitOfWork.Albums.GetById(song.AlbumId);
+
                 song.Thumbnail = album.Thumbnail;
-                _context.Songs.Add(song);
-                _context.SaveChanges();
+
+                _unitOfWork.Songs.Create(song);
+                _unitOfWork.Complete();
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AlbumId = new SelectList(_albumRepository.GetAll(), "ID", "Title", song.AlbumId);
+            ViewBag.AlbumId = new SelectList(_unitOfWork.Albums.GetAll(), "ID", "Title", song.AlbumId);
             return View(song);
         }
 
 
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var song = _context.Songs
-                .Include(s => s.Album)
-                .SingleOrDefault(s => s.ID == id);
+            var song = _unitOfWork.Songs.GetByIdWithAlbum(id);
 
             if (song == null)
             {
                 return HttpNotFound();
             }
 
-            var albums = _context.Albums.ToList();
+            var albums = _unitOfWork.Albums.GetAll();
 
             var viewModel = new SongFormViewModel()
             {
                 Song = song,
-                Albums = albums
+                Albums = (List<Album>)albums
             };
 
             return View("SongForm", viewModel);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
         }
     }
 }

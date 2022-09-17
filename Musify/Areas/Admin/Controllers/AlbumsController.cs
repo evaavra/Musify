@@ -8,22 +8,25 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using Musify.ViewModels;
+using Musify.Repositories;
+using Musify.Persistence;
+using Musify.Interfaces;
 
 namespace Musify.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AlbumsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AlbumsController()
+        public AlbumsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         public ActionResult Index()
         {
-            var albums = _context.Albums.Include(a => a.Artist).Include(a => a.Genre).ToList();
+            var albums = _unitOfWork.Albums.GetAllWithArtistAndGenre().ToList();
             return View(albums);
         }
 
@@ -32,8 +35,8 @@ namespace Musify.Areas.Admin.Controllers
             var viewmodel = new AlbumFormViewModel()
             {
                 Heading = "Create an Album",
-                Artists = _context.Artists.ToList(),
-                Genres = _context.Genres.ToList()
+                Artists = _unitOfWork.Artists.GetAll().ToList(),
+                Genres = _unitOfWork.Genres.GetAll().ToList()
             };
             return View(viewmodel);
         }
@@ -45,8 +48,8 @@ namespace Musify.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 viewmodel.Heading = "Create an Album";
-                viewmodel.Artists = _context.Artists.ToList();
-                viewmodel.Genres = _context.Genres.ToList();
+                viewmodel.Artists = _unitOfWork.Artists.GetAll().ToList();
+                viewmodel.Genres = _unitOfWork.Genres.GetAll().ToList();
                 return View(viewmodel);
             }
             if (viewmodel.ImageFile == null)
@@ -67,8 +70,9 @@ namespace Musify.Areas.Admin.Controllers
                 GenreId = viewmodel.GenreId,
                 Thumbnail = viewmodel.Thumbnail
             };
-            _context.Albums.Add(album);
-            _context.SaveChanges();
+
+            _unitOfWork.Albums.Create(album);
+            _unitOfWork.Complete();
 
             return RedirectToAction("Index", "Albums");
 
@@ -78,12 +82,8 @@ namespace Musify.Areas.Admin.Controllers
         {
             try
             {
-                if (id == null)
-                {
-                    throw new ArgumentNullException(nameof(id));
-                }
-                var album = _context.Albums.Include(a => a.Artist).Include(a => a.Genre)
-                    .SingleOrDefault(a => a.ID == id);
+                var album = _unitOfWork.Albums.GetByIdWithArtistAndGenre(id);
+
                 if (album == null)
                 {
                     return HttpNotFound();
@@ -98,8 +98,8 @@ namespace Musify.Areas.Admin.Controllers
                         Thumbnail = album.Thumbnail,
                         GenreId = album.GenreId,
                         ArtistId = album.ArtistId,
-                        Artists = _context.Artists.ToList(),
-                        Genres = _context.Genres.ToList(),
+                        Artists = _unitOfWork.Artists.GetAll().ToList(),
+                        Genres = _unitOfWork.Genres.GetAll().ToList(),
                         Heading = "Edit the album"
                     };
                     return View("Create", viewModel);
@@ -118,8 +118,8 @@ namespace Musify.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 viewmodel.Heading = "Edit the Trainer";
-                viewmodel.Artists = _context.Artists.ToList();
-                viewmodel.Genres = _context.Genres.ToList();
+                viewmodel.Artists = _unitOfWork.Artists.GetAll().ToList();
+                viewmodel.Genres = _unitOfWork.Genres.GetAll().ToList();
                 return View("Create", viewmodel);
             }
             if (viewmodel.ImageFile != null)
@@ -128,18 +128,18 @@ namespace Musify.Areas.Admin.Controllers
                 string fullPath = Path.Combine(Server.MapPath("~/img"), viewmodel.Thumbnail);
                 viewmodel.ImageFile.SaveAs(fullPath);
             }
-            var album = _context.Albums.Include(a => a.Artist).Include(a => a.Genre)
-                    .SingleOrDefault(a => a.ID == viewmodel.ID);
+
+            var album = _unitOfWork.Albums.GetByIdWithArtistAndGenre(viewmodel.ID);
 
             album.Title = viewmodel.Title;
             album.ReleaseDate = viewmodel.ReleaseDate;
             album.ArtistId = viewmodel.ArtistId;
             album.GenreId = viewmodel.GenreId;
             album.Thumbnail = viewmodel.Thumbnail;
-            _context.SaveChanges();
+
+            _unitOfWork.Complete();
 
             return RedirectToAction("Index");
         }
-
     }
 }

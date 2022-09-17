@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using Musify.Interfaces;
 
 namespace Musify.Repositories
 {
-    public class ArtistRepository : IDisposable
+    public class ArtistRepository : IArtistRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public ArtistRepository()
+        public ArtistRepository(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
+            _context = context;
         }
-        //------------------------------------------------------------------------
+
         public IEnumerable<Artist> GetAll()
         {
             return _context.Artists;
@@ -53,25 +54,16 @@ namespace Musify.Repositories
         public void Create(Artist artist)
         {
             _context.Artists.Add(artist);
-            _context.SaveChanges();
         }
 
         public void Update(Artist artist)
         {
             _context.Entry(artist).State = EntityState.Modified;
-            _context.SaveChanges();
         }
 
-        public void Delete(int? id)
+        public void Delete(Artist artist)
         {
-            Artist artist = GetById(id);
             _context.Artists.Remove(artist);
-            _context.SaveChanges();
-        }
-
-        public void Save()
-        {
-            _context.SaveChanges();
         }
 
         public IEnumerable<Artist> GetFirstFive()
@@ -81,11 +73,6 @@ namespace Musify.Repositories
             var firstFour = artists.Take(5);
 
             return firstFour;
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
         }
     }
 }

@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using Musify.Interfaces;
 
 namespace Musify.Repositories
 {
-    public class AlbumRepository : IDisposable
+    public class AlbumRepository : IAlbumRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public AlbumRepository()
+        public AlbumRepository(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
+            _context = context;
         }
 
         public IEnumerable<Album> GetAll()
@@ -21,10 +22,11 @@ namespace Musify.Repositories
             return _context.Albums;
         }
 
-        public IEnumerable<Album> GetAllWithArtist()
+        public IEnumerable<Album> GetAllWithArtistAndGenre()
         {
             return _context.Albums
-                .Include(a => a.Artist);
+                .Include(a => a.Artist)
+                .Include(a => a.Genre);
         }
 
         public Album GetById(int? id)
@@ -50,28 +52,32 @@ namespace Musify.Repositories
                 .SingleOrDefault(a => a.ID == id);
         }
 
+        public Album GetByIdWithArtistAndGenre(int? id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var album = _context.Albums.Include(a => a.Artist).Include(a => a.Genre)
+                .SingleOrDefault(a => a.ID == id);
+
+            return album;
+        }
+
         public void Create(Album album)
         {
             _context.Albums.Add(album);
-            _context.SaveChanges();
         }
 
         public void Update(Album album)
         {
             _context.Entry(album).State = EntityState.Modified;
-            _context.SaveChanges();
         }
 
-        public void Delete(int? id)
+        public void Delete(Album album)
         {
-            Album album = GetById(id);
             _context.Albums.Remove(album);
-            _context.SaveChanges();
-        }
-
-        public void Save()
-        {
-            _context.SaveChanges();
         }
 
         public IEnumerable<Album> GetFirstFour()
@@ -80,11 +86,6 @@ namespace Musify.Repositories
             var firstFour = albums.Take(4);
 
             return firstFour;
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
         }
     }
 }

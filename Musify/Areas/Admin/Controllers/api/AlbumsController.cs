@@ -1,4 +1,6 @@
-﻿using Musify.Models;
+﻿using Musify.Interfaces;
+using Musify.Models;
+using Musify.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +10,29 @@ using System.Web.Http;
 
 namespace Musify.Areas.Admin.Controllers.api
 {
-    //[RoutePrefix("api/Albums")]
+    [Authorize(Roles = "Admin")]
     public class AlbumsController : ApiController
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AlbumsController()
+        public AlbumsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
 
         [HttpDelete]
         public IHttpActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-            var album = _context.Albums.Single(a => a.ID == id);
+            var album = _unitOfWork.Albums.GetById(id);
+
             if (album == null)
                 return NotFound();
-            _context.Albums.Remove(album);
-            _context.SaveChanges();
+
+            _unitOfWork.Albums.Delete(album);
+
+            _unitOfWork.Complete();
+
             return Ok();
         }
     }

@@ -1,4 +1,6 @@
-﻿using Musify.Models;
+﻿using Musify.Interfaces;
+using Musify.Models;
+using Musify.Repositories;
 using Musify.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,25 +13,25 @@ namespace Musify.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DashboardController()
+        public DashboardController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         // GET: Admin/Dashboard
         public ActionResult Index()
         {
-            var users = _context.Users.ToList();
-            var usersHavePaid = users.Where(u => u.HasPaid == true).ToList();
-            var usersHaveNotPaid = users.Where(u => u.HasPaid == false).ToList();
+            var users = _unitOfWork.Users.GetAll().ToList();
+            var usersHavePaid = _unitOfWork.Users.GetPremiumUsers().ToList();
+            var usersHaveNotPaid = _unitOfWork.Users.GetNotPremiumUsers().ToList();
 
             var viewModel = new AllDataViewModel()
             {
-                Artists = _context.Artists.ToList(),
-                Albums = _context.Albums.ToList(),
-                Songs = _context.Songs.ToList(),
+                Artists = _unitOfWork.Artists.GetAll().ToList(),
+                Albums = _unitOfWork.Albums.GetAll().ToList(),
+                Songs = _unitOfWork.Songs.GetAll().ToList(),
                 Users = users,
                 UsersHavePaid = usersHavePaid,
                 UsersHaveNotPaid = usersHaveNotPaid
