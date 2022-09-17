@@ -225,6 +225,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PlaylistsController.cs" />
+    <Compile Include="Controllers\SongsDetailsController.cs" />
     <Compile Include="Dtos\PlaylistDetailsDto.cs" />
     <Compile Include="Dtos\PlaylistDto.cs" />
     <Compile Include="Global.asax.cs">
@@ -291,6 +292,7 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PlaylistNewViewModel.cs" />
     <Compile Include="ViewModels\SongFormViewModel.cs" />
+    <Compile Include="ViewModels\SongsDetailsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\all.css" />
@@ -305,8 +307,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\210479763_5939944476045499_6721507586886087545_n.jpg" />
+    <Content Include="img\D1KFYl6W0AA3z_f.jpg" />
     <Content Include="img\mus.jpg" />
     <Content Include="img\na_image.jpg" />
+    <Content Include="img\tourkia-848x478.jpg" />
     <Content Include="img\undraw_profile_2.svg" />
     <Content Include="Scripts\audioPlayer.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -403,6 +408,7 @@
     <Content Include="Views\AlbumsDetails\Index.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\ArtistsDetails\Index.cshtml" />
+    <Content Include="Views\SongsDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

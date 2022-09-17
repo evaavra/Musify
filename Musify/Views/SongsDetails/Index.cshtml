@@ -1,0 +1,69 @@
+﻿@model Musify.ViewModels.SongsDetailsViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container">
+    <div class="song-play">
+        <div class="songImage">
+            <img src="~/img/mus.jpg" width="300" height="300" id="songImage" />
+        </div>
+        <div class="audioPlayer2">
+            <audio src="" type="audio/mpeg" controls id="audioPlayer2">
+                Sorry your browser doesn 't support html5!
+                @*<source src="~/Songs/@item.Song.SongPath" type="audio/mpeg" />*@
+            </audio>
+            <p id="songName"></p>
+        </div>
+    </div>
+    @*<div class="row">*@
+    @using (Html.BeginForm("Search", "SongsDetails"))
+    {
+        <div class="form-group">
+            <div id="searchSongs" class="input-group">
+                @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search a song..." })
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-search"></i>
+                </span>
+            </div>
+        </div>
+    }
+    @*</div>*@
+
+    <ul id="playlist">
+        @foreach (var song in Model.Songs)
+        {
+            <li>
+                <div>
+                    <a song-image="~/img/@song.Thumbnail" song-title="@song.Title" href="~/Songs/@song.SongPath">@song.Title</a>
+                    @song.Album.Artist.Name
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+
+@section scripts{
+    <script>
+        function audioPlayer() {
+            var currentSong;
+            @*$("#audioPlayer2")[0].src = $("#playlist li a")[0];
+            $("#audioPlayer2")[0].play();*@
+            $("#playlist li a").click(function (e) {
+                var a = $(e.target);
+                e.preventDefault();
+                $("#audioPlayer2")[0].src = this;
+                $("#songImage")[0].src = a.attr("song-Image");
+                $("#songName")[0].innerHTML = a.attr("song-title");
+                $("#audioPlayer2")[0].play();
+                @*this.addClass("current-song");*@
+                currentSong = $(this).parent().index();
+                @*$(this).parent().addClass("current-song");*@
+            });
+
+        }
+        audioPlayer();
+    </script>
+
+} 

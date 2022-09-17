@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Chat";
 }
@@ -14,7 +14,7 @@
             <input type="text" id="message" />
             <input type="button" id="sendmessage" value="Send" />
         </div>
-        <input type="hidden" id="displayname" />
+        <input type="hidden" id="displayname" value="@User.Identity.GetUserName()" />
     </div>
 </div>
 
@@ -47,14 +47,11 @@
             chat.client.stopWriting = function () {
                 $('#bubbles').attr("hidden", true);
             };
-            // Get the user name and store it to prepend to messages.
-            $('#displayname').val(prompt('Enter your name:', ''));
             // Set initial focus to message input box.
             //$('#message').focus();
             // Start the connection.
             $.connection.hub.start().done(function () {
                 $("#message").keyup(function () {
-                    console.log("HEllo");
                     chat.server.write();
                 });
                 $("#message").keydown(function () {

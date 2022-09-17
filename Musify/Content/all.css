@@ -50,11 +50,23 @@
     color:blue;
 }
 
-#cent-playl {
+#cent-playl, .song-play {
     margin: auto;
     width: 50%;
     background-color: darkslategray;
     padding: 50px;
+}
+
+.song-play #songName { 
+    text-align: center;
+}
+
+.song-play .audioPlayer2 { 
+    text-align: center;
+}
+
+.song-play .songImage { 
+    text-align: center;
 }
 
 #chatform #discussion .right {
