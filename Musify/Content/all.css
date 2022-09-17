@@ -21,6 +21,11 @@
     height: 100px;
 }
 
+.albums-photo-bigger {
+    width: 250px;
+    height: 250px;
+}
+
 .artists-photo {
     width: 100px;
     height: 100px;
