@@ -31,17 +31,6 @@ namespace Musify.Areas.Admin.Controllers
             return View(songs);
         }
 
-        public ActionResult Details(int? id)
-        {
-            Song song = _unitOfWork.Songs.GetByIdWithAlbumAndArtist(id);
-
-            if (song == null)
-            {
-                return HttpNotFound();
-            }
-            return View(song);
-        }
-
         [HttpGet]
         public ActionResult Create()
         {
@@ -90,15 +79,9 @@ namespace Musify.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var albums = _unitOfWork.Albums.GetAll();
+            ViewBag.AlbumId = new SelectList(_unitOfWork.Albums.GetAll(), "ID", "Title");
 
-            var viewModel = new SongFormViewModel()
-            {
-                Song = song,
-                Albums = (List<Album>)albums
-            };
-
-            return View("SongForm", viewModel);
+            return View("Create", song);
         }
     }
 }

@@ -32,7 +32,7 @@
                         <img src="~/img/@Url.Content(artist.Thumbnail)" class="artists-photo" />
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = artist.ID }) |
+                        @Html.ActionLink("Edit", "Edit", new { id = artist.ID })
                         <button data-artist-id="@artist.ID" class="btn btn-link js-delete">Delete</button>
                     </td>
                 </tr>

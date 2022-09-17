@@ -49,7 +49,7 @@
                         <img src="~/img/@Url.Content(album.Thumbnail)" class="albums-photo" />
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = album.ID }) |
+                        @Html.ActionLink("Edit", "Edit", new { id = album.ID })
                         <button data-album-id="@album.ID" class="btn btn-link js-delete">Delete</button>
                     </td>
                 </tr>

@@ -25,7 +25,6 @@
                     @Html.DisplayNameFor(model => model.SongPath)
                 </th>
                 <th></th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -47,17 +46,8 @@
                             <source src="~/Songs/@item.SongPath" type="audio/mpeg" />
                         </audio>
                     </td>
-                    @*<td>
-                            <img src="~/img/@Url.Content(item.Thumbnail)" class="albums-photo" />
-                        </td>*@
                     <td>
-                        @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
-                    </td>
-
-                    <td>
-                        @*@Html.ActionLink("Details", "Details", new { id = trainer.ID }) &nbsp&nbsp&nbsp|*@
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID })
                         <button data-song-id="@item.ID" class="btn btn-link js-delete">Delete</button>
                     </td>
                 </tr>
