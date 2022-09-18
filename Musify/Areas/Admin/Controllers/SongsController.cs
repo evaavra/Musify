@@ -35,6 +35,7 @@ namespace Musify.Areas.Admin.Controllers
         public ActionResult Create()
         {
             ViewBag.AlbumId = new SelectList(_unitOfWork.Albums.GetAll(), "ID", "Title");
+            //ViewBag.Heading = "Create";
             return View();
         }
 
@@ -80,8 +81,12 @@ namespace Musify.Areas.Admin.Controllers
             }
 
             ViewBag.AlbumId = new SelectList(_unitOfWork.Albums.GetAll(), "ID", "Title");
+            //ViewBag.Heading = "Edit";
 
             return View("Create", song);
         }
+
+        
+        
     }
 }

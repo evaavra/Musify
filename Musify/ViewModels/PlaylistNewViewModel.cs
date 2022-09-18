@@ -9,11 +9,10 @@ namespace Musify.ViewModels
 {
     public class PlaylistNewViewModel
     {
-        public int PlaylistId { get; set; }
+        public Playlist Playlist { get; set; }
 
-        [Required]
-        public string PlaylistName { get; set; }
+        public List<Song> SongsInPlaylist { get; set; }
 
-        public List<Song> Songs { get; set; }
+        public List<Song> SongsNotInPlaylist { get; set; }
     }
 }

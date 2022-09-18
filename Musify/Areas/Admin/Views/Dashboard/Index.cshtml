@@ -2,13 +2,14 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="lists" hidden artists-count="@Model.Artists.Count()" albums-count="@Model.Albums.Count()"
-     songs-count="@Model.Songs.Count()" users-count="@Model.Users.Count()"
-     users-havepaid-count="@Model.UsersHavePaid.Count()" users-havenotpaid-count="@Model.UsersHaveNotPaid.Count()"></div>
-<div id="myChart" style="width:50%; max-width:400px; height:500px;"></div>
-<div id="myPieChart" style="width:50%; max-width:400px; height:500px;">
+<div class="container">
+    <div class="lists" hidden artists-count="@Model.Artists.Count()" albums-count="@Model.Albums.Count()"
+         songs-count="@Model.Songs.Count()" users-count="@Model.Users.Count()"
+         users-havepaid-count="@Model.UsersHavePaid.Count()" users-havenotpaid-count="@Model.UsersHaveNotPaid.Count()"></div>
+    <div id="myChart" style="width:500px; height:500px; float:left"></div>
+    <div id="myPieChart" style="width:500px; height:500px; float:right">
+    </div>
 </div>
-
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 @section scripts{

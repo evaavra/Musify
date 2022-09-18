@@ -38,8 +38,12 @@ namespace Musify.Controllers
                     userPlaylists.Add(pl);
                 }
             }
-            
-            return View(userPlaylists);
+
+            var viewmodel = new PlaylistIndexViewModel()
+            {
+                Playlists = userPlaylists
+            };
+            return View(viewmodel);
         }
 
         public ActionResult ListenToPlaylist(int? id)
@@ -61,12 +65,34 @@ namespace Musify.Controllers
             return View(playlist);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            var playlist = _context.Playlists.Include(p => p.PlaylistDetails.Select(pl => pl.Song)).SingleOrDefault(p => p.Id == id);
             var songs = _context.Songs.ToList();
+            var songsInPlaylist = new List<Song>();
+            var songsNotInPlaylist = new List<Song>();
+            foreach (var song in songs)
+            {
+                var count = 0;
+                foreach (var pldet in playlist.PlaylistDetails)
+                {
+                    
+                    if (song.ID == pldet.SongId){
+                        count++;
+                        songsInPlaylist.Add(song);
+                    }
+                }
+                if (count == 0)
+                {
+                    songsNotInPlaylist.Add(song);
+                }
+
+            }
             var viewModel = new PlaylistNewViewModel()
             {
-                Songs = songs
+                Playlist = playlist,
+                SongsInPlaylist = songsInPlaylist,
+                SongsNotInPlaylist = songsNotInPlaylist
             };
             return View(viewModel);
         }

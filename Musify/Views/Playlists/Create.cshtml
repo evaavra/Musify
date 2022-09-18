@@ -4,21 +4,11 @@
 }
 
 <div class="container">
+    <h2 id="plname">@Model.Playlist.Name</h2>
+    <div hidden id="playlist-id">@Model.Playlist.Id</div>
+    <br />
     <div class="row">
-
-        <div class="form-group" id="input">
-            @Html.LabelFor(m => m.PlaylistName)
-            @Html.TextBoxFor(m => m.PlaylistName, htmlAttributes: new { id = "playlistName" })
-            @Html.ValidationMessageFor(m => m.PlaylistName)
-        </div>
-        <button class="add-playlist btn btn-primary" type="submit">Add playlist</button>
-
-    </div>
-    <div id="plname"></div>
-    <div hidden id="playlist-id"></div>
-
-    <div class="row">
-        @foreach (var song in Model.Songs)
+        @foreach (var song in Model.SongsInPlaylist)
         {
             <div class="col-md-3">
 
@@ -29,10 +19,29 @@
                     <img src="~/img/@Url.Content(song.Thumbnail)" class="songs-photo" />
                 </div>
                 <div>
-                    <button nema="@song.ID" data-song-id="@song.ID" type="submit" class="js-add-to-playlist btn btn-primary">Add to playlist</button>
+                    <button hidden nema2="@song.ID" data-song-id="@song.ID" type="submit" class="js-add-to-playlist2 btn btn-link">Add to playlist</button>
                 </div>
                 <div>
-                    <button hidden name="@song.ID" data-song-id="@song.ID" type="submit" class="js-remove-from-playlist btn btn-primary">Remove from playlist</button>
+                    <button name2="@song.ID" data-song-id="@song.ID" type="submit" class="js-remove-from-playlist2 btn btn-link">Remove from playlist</button>
+                </div>
+
+            </div>
+        }
+        @foreach (var song in Model.SongsNotInPlaylist)
+        {
+            <div class="col-md-3">
+
+                <div>
+                    @Html.DisplayFor(modelsong => song.Title)
+                </div>
+                <div>
+                    <img src="~/img/@Url.Content(song.Thumbnail)" class="songs-photo" />
+                </div>
+                <div>
+                    <button nema="@song.ID" data-song-id="@song.ID" type="submit" class="js-add-to-playlist btn btn-link">Add to playlist</button>
+                </div>
+                <div>
+                    <button hidden name="@song.ID" data-song-id="@song.ID" type="submit" class="js-remove-from-playlist btn btn-link">Remove from playlist</button>
                 </div>
 
             </div>
@@ -43,26 +52,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            $(".add-playlist").click(function (e) {
-                var playlistName = $("#playlistName").val();
-                e.preventDefault();
-                $.post("/api/playlists/create", { name: playlistName })
-                    .done(function (response) {
-                        alert("Went well")
-                        console.log(response);
-                        var id = response.id;
-                        console.log(id);
-                        $("#playlist-id").text(id);
-                        $("#plname").text("Playlist: " + playlistName);
-                        $("#input").hide();
-                        $(".add-playlist").hide();
-                    }).fail(function () {
-                        alert("Something Failed")
-                    });
-
-
-            });
-
+            
             $(".js-add-to-playlist").click(function (e) {
                 var baseUrl = window.location.origin;
                 var button = $(e.target);
@@ -71,11 +61,8 @@
                 var playlistId = $("#playlist-id").text();
                 console.log(playlistId);
                 console.log(songId);
-                console.log("hello")
                 $.post(baseUrl + "/api/playlistsDetails", { playlistId: playlistId, songId: songId })
                     .done(function (response) {
-                        alert("Went well");
-                        console.log(response);
                         button.hide();
                         $("button[name=" + songId + "]").removeAttr("hidden");
                     }).fail(function () {
@@ -98,8 +85,6 @@
                     type: "DELETE"
                 })
                     .done(function (response) {
-                        alert("Went well");
-                        console.log(response);
                         button.attr("hidden", true);
                         $("button[nema=" + songId + "]").show();
                     }).fail(function () {
@@ -107,7 +92,47 @@
                     });
 
             })
+            $(".js-add-to-playlist2").click(function (e) {
+                var baseUrl = window.location.origin;
+                var button = $(e.target);
+                var songId = button.attr("data-song-id")
+                e.preventDefault();
+                var playlistId = $("#playlist-id").text();
+                console.log(playlistId);
+                console.log(songId);
+                $.post(baseUrl + "/api/playlistsDetails", { playlistId: playlistId, songId: songId })
+                    .done(function (response) {
+                        button.attr("hidden", true);
+                        $("button[name2=" + songId + "]").show();
+                    }).fail(function () {
+                        alert("Something Failed");
+                    });
+
+            })
+
+            $(".js-remove-from-playlist2").click(function (e) {
+                var button = $(e.target);
+                var songId = button.attr("data-song-id")
+                e.preventDefault();
+                var playlistId = $("#playlist-id").text();
+                console.log("Hellloo")
+                console.log(playlistId);
+                console.log(songId);
+                $.ajax({
+                    url: "/api/playlistsDetails/",
+                    data: { playlistId: playlistId, songId: songId },
+                    type: "DELETE"
+                })
+                    .done(function (response) {
+                        button.hide();
+                        $("button[nema2=" + songId + "]").removeAttr("hidden");
+                    }).fail(function () {
+                        alert("Something Failed");
+                    });
+
+            })
         });
+        
     </script>
 
 } 

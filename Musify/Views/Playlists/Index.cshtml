@@ -1,41 +1,60 @@
-﻿@model List<Musify.Models.Playlist>
+﻿@model Musify.ViewModels.PlaylistIndexViewModel
 @{
     ViewBag.Title = "Index";
 }
 
-    <div class="container">
+<div class="container">
 
-        @Html.ActionLink("Create New Playlist", "Create")
-        <br />
-        <br />
-        <h2>My Playlists</h2>
-
+    <button class="btn btn-link create">Create new playlist</button>
+    <div id="input" hidden>
+        Give a name to your new playlist:
         <div class="row">
 
+            <div class="form-group">
 
-            @foreach (var playlist in Model)
-            {
-                <section class="col-md-3">
-                    <h4>
-                        @Html.DisplayFor(modelplaylist => playlist.Name)
-                    </h4>
-                    @if (playlist.PlaylistDetails.Count > 0)
-                    {
-                        <div>
-                            <img src="~/img/@Url.Content(playlist.PlaylistDetails[0].Song.Thumbnail)" class="songs-photo myImage" plId="@playlist.Id" />
-                        </div>
-                        <div>@playlist.PlaylistDetails.Count songs</div>
-                    }
-                    <button class="delete-pl" data-pl-id="@playlist.Id">Delete</button>
-
-
-                </section>
-            }
-
+                @Html.TextBoxFor(m => m.PlaylistName, htmlAttributes: new { id = "playlistName", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PlaylistName)
+            </div>
+            <button class="add-playlist btn btn-link" type="submit">Add playlist</button>
         </div>
+    </div>
 
+    <h2>My Playlists</h2>
+
+    <div class="row">
+
+
+        @foreach (var playlist in Model.Playlists)
+        {
+        <section class="col-md-3">
+            <h4>
+                @Html.DisplayFor(modelplaylist => playlist.Name)
+            </h4>
+            @if (playlist.PlaylistDetails.Count > 0)
+            {
+                <div>
+                    <img src="~/img/@Url.Content(playlist.PlaylistDetails[0].Song.Thumbnail)" class="songs-photo myImage" plId="@playlist.Id" />
+                </div>
+                <div>@playlist.PlaylistDetails.Count songs</div>
+            }
+            else
+            {
+                <div>
+                    <img src="/img/mus.jpg" class="songs-photo myImage" plId="@playlist.Id" />
+                </div>
+                <div>0 songs</div>
+            }
+            <button class="btn btn-link edit-pl" data-pl-id="@playlist.Id">Edit</button>
+            <button class="btn btn-link delete-pl" data-pl-id="@playlist.Id">Delete</button>
+
+
+        </section>
+        }
 
     </div>
+
+
+</div>
 
 
 @section scripts{
@@ -65,6 +84,32 @@
                     });
                 }
             })
+            $(".edit-pl").click(function (e) {
+                var edbut = $(e.target);
+                var playlistId2 = edbut.attr("data-pl-id");
+                location.href = "https://localhost:44381/Playlists/Create/" + playlistId2;
+            })
+            $(".create").click(function () {
+                $("#input").removeAttr("hidden");
+                
+            })
+            $(".add-playlist").click(function (e) {
+                var playlistName = $("#playlistName").val();
+                e.preventDefault();
+                $.post("/api/playlists/create", { name: playlistName })
+                    .done(function (response) {
+                        var id = response.id;
+                        console.log(id);
+                        $("#playlist-id").text(id);
+                        $("#input").hide();
+                        $(".add-playlist").hide();
+                        location.reload();
+                    }).fail(function () {
+                        alert("Something Failed")
+                    });
+
+
+            });
         });
     </script>
 
