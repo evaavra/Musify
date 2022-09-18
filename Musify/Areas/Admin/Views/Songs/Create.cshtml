@@ -5,9 +5,10 @@
 }
 
 
-@using (Html.BeginForm(ViewBag.Heading, "Songs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Songs", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+    @*@Html.HiddenFor(m => m.ID)*@
     
     <div class="form-horizontal">
         <h4>Song</h4>

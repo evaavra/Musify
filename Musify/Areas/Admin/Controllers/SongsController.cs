@@ -35,7 +35,7 @@ namespace Musify.Areas.Admin.Controllers
         public ActionResult Create()
         {
             ViewBag.AlbumId = new SelectList(_unitOfWork.Albums.GetAll(), "ID", "Title");
-            //ViewBag.Heading = "Create";
+            //ViewBag.Method = "Create";
             return View();
         }
 
@@ -81,12 +81,45 @@ namespace Musify.Areas.Admin.Controllers
             }
 
             ViewBag.AlbumId = new SelectList(_unitOfWork.Albums.GetAll(), "ID", "Title");
-            //ViewBag.Heading = "Edit";
+            //ViewBag.Method = "Edit";
 
-            return View("Create", song);
+            return View("Edit", song);
         }
 
-        
-        
+        [HttpPost]
+        public ActionResult Edit(Song song)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.AlbumId = new SelectList(_unitOfWork.Albums.GetAll(), "ID", "Title", song.AlbumId);
+                return View("Create", song);
+            }
+            if (song.SongFile == null)
+            {
+                song.SongPath = "NO SONG FILE";
+            }
+            else
+            {
+                song.SongPath = Path.GetFileName(song.SongFile.FileName);
+                string fullPath = Path.Combine(Server.MapPath("~/Songs/"), song.SongPath);
+                song.SongFile.SaveAs(fullPath);
+            }
+
+            var songInDb = _unitOfWork.Songs.GetByIdWithAlbum(song.ID);
+            Album album = _unitOfWork.Albums.GetById(song.AlbumId);
+
+
+            songInDb.Title = song.Title;
+            songInDb.SongPath = song.SongPath;
+            songInDb.Thumbnail = album.Thumbnail;
+            songInDb.AlbumId = song.AlbumId;
+            
+            _unitOfWork.Complete();
+
+            return RedirectToAction("Index");
+        }
+
+
+
     }
 }

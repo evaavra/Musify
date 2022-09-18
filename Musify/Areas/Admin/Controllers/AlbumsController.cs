@@ -117,7 +117,6 @@ namespace Musify.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                viewmodel.Heading = "Edit the Trainer";
                 viewmodel.Artists = _unitOfWork.Artists.GetAll().ToList();
                 viewmodel.Genres = _unitOfWork.Genres.GetAll().ToList();
                 return View("Create", viewmodel);
