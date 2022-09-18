@@ -384,7 +384,6 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.woff" />
@@ -410,6 +409,7 @@
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\ArtistsDetails\Index.cshtml" />
     <Content Include="Views\SongsDetails\Index.cshtml" />
+    <Content Include="Views\Home\PartialPremium.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

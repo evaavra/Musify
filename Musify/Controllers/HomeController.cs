@@ -1,4 +1,5 @@
-﻿using Musify.Interfaces;
+﻿using Microsoft.AspNet.Identity;
+using Musify.Interfaces;
 using Musify.Models;
 using Musify.Repositories;
 using Musify.ViewModels;
@@ -50,6 +51,13 @@ namespace Musify.Controllers
             ViewBag.Message = "Your chat page";
 
             return View();
+        }
+
+        public ActionResult PartialPremium()
+        {
+            var id = User.Identity.GetUserId();
+            var user = _unitOfWork.Users.GetUser(id);
+            return PartialView(user);
         }
     }
 }

@@ -1,0 +1,20 @@
+﻿@model Musify.Models.ApplicationUser
+@using Microsoft.AspNet.Identity
+
+<li>
+    <a class="nav-link" href="~/Home/Chat">
+        <i class="fa fa-commenting-o fa-comments" aria-hidden="true" style="color:black;"></i>
+    </a>
+</li>
+@if (Model.HasPaid == false)
+{
+    <li>
+        <a class="nav-link" href="~/Payment/Index">
+            Premium
+        </a>
+    </li>
+}
+
+
+
+

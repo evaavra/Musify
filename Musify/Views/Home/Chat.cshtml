@@ -3,18 +3,20 @@
     ViewBag.Title = "Chat";
 }
 
-<h2>Chat</h2>
-
-<div class="row" id="chatform">
-    <div class="col-md-12">
-        <table id="discussion">
-        </table>
-        <div id="bubbles" hidden>someone is writing...</div>
-        <div id="inputs">
-            <input type="text" id="message" />
-            <input type="button" id="sendmessage" value="Send" />
+<div class="container">
+    <h2 style="text-align:center">Live Chatroom</h2>
+    <div class="row">
+        <div id="chatform">
+            <table id="discussion" class="fixed">
+                
+            </table>
+            <div id="bubbles" hidden>someone is writing...</div>
+            <div id="inputs">
+                <input type="text" id="message" />
+                <input type="button" id="sendmessage" value="Send" />
+            </div>
+            <input type="hidden" id="displayname" value="@User.Identity.GetUserName()" />
         </div>
-        <input type="hidden" id="displayname" value="@User.Identity.GetUserName()" />
     </div>
 </div>
 
@@ -38,8 +40,8 @@
             };
             chat.client.recieveNewMessageToPage = function (name, message) {
                 // Add the message to the page.
-                $('#discussion').append('<tr><td class="right"><strong>' + htmlEncode(name)
-                    + '</strong>: ' + htmlEncode(message) + '</td></tr>');
+                $('#discussion').append('<tr class="right"><td><strong>' + '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;' + htmlEncode(name) +
+                    '</strong>: ' + htmlEncode(message) + '</td></tr>');
             };
             chat.client.showWriting = function () {
                 $('#bubbles').removeAttr("hidden");

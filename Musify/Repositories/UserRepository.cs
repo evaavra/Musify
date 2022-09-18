@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Musify.Interfaces;
+using System.Data.Entity;
 
 namespace Musify.Repositories
 {
@@ -19,6 +20,11 @@ namespace Musify.Repositories
         public IEnumerable<ApplicationUser> GetAll()
         {
             return _context.Users;
+        }
+
+        public ApplicationUser GetUser(string id)
+        {
+            return _context.Users.SingleOrDefault(u => u.Id == id);
         }
 
         public IEnumerable<ApplicationUser> GetPremiumUsers()
