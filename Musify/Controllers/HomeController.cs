@@ -49,7 +49,12 @@ namespace Musify.Controllers
         public ActionResult Chat()
         {
             ViewBag.Message = "Your chat page";
-
+            var userId = User.Identity.GetUserId();
+            var user = _unitOfWork.Users.GetUser( userId);
+            if (user.HasPaid == false)
+            {
+                return RedirectToAction("Index", "Payment");
+            }
             return View();
         }
 

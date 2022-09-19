@@ -16,6 +16,14 @@
   text-rendering: auto;
   line-height: 1; }
 
+.textHome{
+    text-align: center;
+}
+
+
+ul#payment{
+    margin-left: 280px;
+}
 .albums-photo {
     width: 100px;
     height: 100px;

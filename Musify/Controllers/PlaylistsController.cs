@@ -27,7 +27,7 @@ namespace Musify.Controllers
             var user = _context.Users.SingleOrDefault(u => u.Id == userId);
             if(user.HasPaid == false)
             {
-                return View("MessageForPayment");
+                return RedirectToAction("Index","Payment");
             }
             var playlists = _context.Playlists.Include(p => p.PlaylistDetails.Select(pl => pl.Song));
             var userPlaylists = new List<Playlist>();

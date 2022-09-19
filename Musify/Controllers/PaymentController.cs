@@ -109,8 +109,8 @@ namespace Musify.Controllers
             itemList.items.Add(new Item()
             {
                 name = "Item Name comes here",
-                currency = "USD",
-                price = "1",
+                currency = "EUR",
+                price = "24.99",
                 quantity = "1",
                 sku = "sku"
             });
@@ -127,15 +127,15 @@ namespace Musify.Controllers
             // Adding Tax, shipping and Subtotal details  
             var details = new Details()
             {
-                tax = "1",
-                shipping = "1",
-                subtotal = "1"
+                tax = "0",
+                shipping = "0",
+                subtotal = "24.99"
             };
             //Final amount with details  
             var amount = new Amount()
             {
-                currency = "USD",
-                total = "3", // Total must be equal to sum of tax, shipping and subtotal.  
+                currency = "EUR",
+                total = "24.99", // Total must be equal to sum of tax, shipping and subtotal.  
                 details = details
             };
             var transactionList = new List<Transaction>();
