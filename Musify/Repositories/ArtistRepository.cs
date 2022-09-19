@@ -28,6 +28,12 @@ namespace Musify.Repositories
                 .Include(a => a.Albums);
         }
 
+        public IQueryable<Artist> GetAllWithAlbums2()
+        {
+            return _context.Artists
+                .Include(a => a.Albums);
+        }
+
         public Artist GetById(int? id)
         {
             if (id == null)

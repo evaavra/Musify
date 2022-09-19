@@ -3,6 +3,7 @@ using Musify.Interfaces;
 using Musify.Models;
 using Musify.Repositories;
 using Musify.ViewModels;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,23 @@ namespace Musify.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult Index()
-        {
-            HomeViewModel viewModel = new HomeViewModel()
-            {
-                Artists = _unitOfWork.Artists.GetAll(),
-                Albums = _unitOfWork.Albums.GetAll()
-            };
+        //public ActionResult Index()
+        //{
+        //    HomeViewModel viewModel = new HomeViewModel()
+        //    {
+        //        Artists = _unitOfWork.Artists.GetAll(),
+        //        Albums = _unitOfWork.Albums.GetAll()
+        //    };
 
-            return View(viewModel);
+        //    return View(viewModel);
+        //}
+
+        public ActionResult Index(int? page)
+        {
+            var artists = _unitOfWork.Artists.GetAllWithAlbums().OrderBy(a => a.ID)
+                .ToPagedList(page ?? 1, 3);
+
+            return View(artists);
         }
 
         public ActionResult About()

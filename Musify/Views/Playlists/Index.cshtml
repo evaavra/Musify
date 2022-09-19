@@ -32,17 +32,19 @@
             </h4>
             @if (playlist.PlaylistDetails.Count > 0)
             {
-                <div>
+                <div class="contain">
                     <img src="~/img/@Url.Content(playlist.PlaylistDetails[0].Song.Thumbnail)" class="songs-photo myImage" plId="@playlist.Id" />
+
+                    <div class="text-block">@playlist.PlaylistDetails.Count songs</div>
                 </div>
-                <div>@playlist.PlaylistDetails.Count songs</div>
             }
             else
             {
-                <div>
+                <div class="contain">
                     <img src="/img/mus.jpg" class="songs-photo myImage" plId="@playlist.Id" />
+
+                     <div class="text-block">0 songs</div>
                 </div>
-                <div>0 songs</div>
             }
             <button class="btn btn-link edit-pl" data-pl-id="@playlist.Id">Edit</button>
             <button class="btn btn-link delete-pl" data-pl-id="@playlist.Id">Delete</button>

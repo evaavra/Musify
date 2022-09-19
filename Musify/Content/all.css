@@ -20,6 +20,27 @@
     text-align: center;
 }
 
+.contain {
+    width: 200px;
+    height: 200px;
+    font-family: Arial;
+}
+
+.text-block {
+    position: relative;
+    bottom: 30px;
+    right: 0px;
+    background-color: black;
+    color: white;
+    text-align:center;
+    padding-left: 48px;
+    padding-right: 50px;
+    padding-top: 10px;
+    border: 1px;
+    border-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
 
 ul#payment{
     margin-left: 280px;
