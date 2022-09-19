@@ -308,10 +308,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\background.jpg" />
     <Content Include="img\ddd.jpg" />
     <Content Include="img\eee.jpg" />
+    <Content Include="img\ltotbngnzzu.jpg" />
     <Content Include="img\mus.jpg" />
     <Content Include="img\na_image.jpg" />
+    <Content Include="img\send.png" />
     <Content Include="img\tourkia-848x478.jpg" />
     <Content Include="img\undraw_profile_2.svg" />
     <Content Include="Scripts\audioPlayer.js" />

@@ -34,7 +34,7 @@ namespace Musify.Areas.Admin.Controllers
         {
             var viewmodel = new AlbumFormViewModel()
             {
-                Heading = "Create an Album",
+                Heading = "Add Album",
                 Artists = _unitOfWork.Artists.GetAll().ToList(),
                 Genres = _unitOfWork.Genres.GetAll().ToList()
             };
@@ -100,7 +100,7 @@ namespace Musify.Areas.Admin.Controllers
                         ArtistId = album.ArtistId,
                         Artists = _unitOfWork.Artists.GetAll().ToList(),
                         Genres = _unitOfWork.Genres.GetAll().ToList(),
-                        Heading = "Edit the album"
+                        Heading = "Edit Album"
                     };
                     return View("Create", viewModel);
                 }

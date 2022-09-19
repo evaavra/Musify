@@ -4,41 +4,42 @@
 }
 
 
+<div class="container">
+    @using (Html.BeginForm(Model.Action, "Albums", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <h4>@Model.Heading</h4>
 
-@using (Html.BeginForm(Model.Action, "Albums", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <h2>@Model.Heading</h2>
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.ID)
+        @Html.HiddenFor(m => m.Thumbnail)
 
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.ID)
-    @Html.HiddenFor(m => m.Thumbnail)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title)
+            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReleaseDate)
+            @Html.EditorFor(model => model.ReleaseDate, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Title)
-        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ReleaseDate)
-        @Html.EditorFor(model => model.ReleaseDate, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
-    </div>
+        <div class="form=group">
+            @Html.LabelFor(model => model.Thumbnail)
+            <input type="file" name="ImageFile" />
+        </div>
 
-    <div class="form=group">
-        @Html.LabelFor(model => model.Thumbnail)
-        <input type="file" name="ImageFile" />
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArtistId)
+            @Html.DropDownListFor(model => model.ArtistId, new SelectList(Model.Artists, "ID", "Name"), "Select Artist", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ArtistId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.GenreId)
+            @Html.DropDownListFor(model => model.GenreId, new SelectList(Model.Genres, "ID", "Name"), "Select Genre", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.GenreId, "", new { @class = "text-danger" })
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ArtistId)
-        @Html.DropDownListFor(model => model.ArtistId, new SelectList(Model.Artists, "ID", "Name"), "Select Artist", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.ArtistId, "", new { @class = "text-danger" })
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.GenreId)
-        @Html.DropDownListFor(model => model.GenreId, new SelectList(Model.Genres, "ID", "Name"), "Select Genre", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.GenreId, "", new { @class = "text-danger" })
-    </div>
-
-    <button type="submit" class="btn btn-default">Save</button>
-}
+        <button type="submit" class="btn btn-default btn-hover">Save</button>
+    }
+</div>

@@ -12,8 +12,9 @@
             </table>
             <div id="bubbles" hidden>someone is writing...</div>
             <div id="inputs">
-                <input type="text" id="message" />
-                <input type="button" id="sendmessage" value="Send" />
+                <input type="text" id="message" style="border-radius: 15px;"/>
+                <i class="fa fa-paper-plane" aria-hidden="true" id="sendmessage"></i>
+                @*<input type="button" id="sendmessage" value="Send" />*@
             </div>
             <input type="hidden" id="displayname" value="@User.Identity.GetUserName()" />
         </div>
