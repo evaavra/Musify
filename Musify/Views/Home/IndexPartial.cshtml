@@ -27,16 +27,17 @@
             display: block;
             color: Black;
             text-align: center;
-            padding: 14px 16px;
+            padding: 1px 10px;
             text-decoration: none;
+            border:none;
         }
 
     .pagination .active {
-        background-color: #4CAF50;
+        background-color: #e4e9db;
     }
 </style>
 <div class="container">
-    <h1>Albums</h1>
+    <h2>Albums</h2>
     <div class="row brighten" id="some_grid_container">
         @foreach (var album in Model)
         {

@@ -5,6 +5,7 @@
     ViewBag.Title = "Home Page";
 }
 
+
 <style>
     ul.pagination {
         list-style-type: none;
@@ -28,16 +29,18 @@
             display: block;
             color: Black;
             text-align: center;
-            padding: 14px 16px;
+            padding: 1px 10px;
             text-decoration: none;
+            /*border: none;*/
+            border:none;
         }
 
     .pagination .active {
-        background-color: #4CAF50;
+        background-color: #e4e9db;
     }
 </style>
 <div class="container">
-    <h1>Artists</h1>
+    <h2>Artists</h2>
     <div class="row brighten">
         @foreach (var artist in Model)
         {

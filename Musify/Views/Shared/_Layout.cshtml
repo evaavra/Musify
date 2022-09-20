@@ -38,7 +38,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
             <!-- Artists -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="~/ArtistsDetails/Index">
                     <i class="fas fa-play"></i>
                     <span>Artists</span>
@@ -88,9 +88,9 @@
                     <ul class="navbar-nav ml-auto">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            
-                             Html.RenderAction("PartialPremium", "Home");
-                            
+
+                            Html.RenderAction("PartialPremium", "Home");
+
                         }
 
 
@@ -107,29 +107,46 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
 
+
+
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user-circle"></i>
                                     Profile
                                 </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="~/Account/Register">
-                                    <i class="fas fa-skiing"></i>
-                                    Register
-                                </a>
-                                <a class="dropdown-item" href="~/Account/Login">
-                                    <i class="fas fa-sign-in-alt"></i>
-                                    Login
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="~/Admin">
-                                    <i class="fas fa-user-shield"></i>
-                                    Admin Area
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    Logout
-                                </a>
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <div class="dropdown-divider"></div>
+
+                                    <a class="dropdown-item" href="~/Account/Register">
+                                        <i class="fas fa-skiing"></i>
+                                        Register
+                                    </a>
+                                    <a class="dropdown-item" href="~/Account/Login">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        Login
+                                    </a>
+
+                                }
+
+                                @if (User.Identity.GetUserId() == "c57c3373-c769-4b2e-b67a-f39a9cfff781")
+                                {
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="~/Admin">
+                                        <i class="fas fa-user-shield"></i>
+                                        Admin Area
+                                    </a>
+                                }
+
+
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        Logout
+                                    </a>
+                                }
                             </div>
                         </li>
                     </ul>

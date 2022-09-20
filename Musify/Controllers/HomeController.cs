@@ -33,6 +33,7 @@ namespace Musify.Controllers
         //    return View(viewModel);
         //}
 
+     
         public ActionResult Index(int? page)
         {
             var artists = _unitOfWork.Artists.GetAllWithAlbums().OrderBy(a => a.ID)
