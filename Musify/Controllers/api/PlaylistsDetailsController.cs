@@ -1,4 +1,5 @@
 ﻿using Musify.Dtos;
+using Musify.Interfaces;
 using Musify.Models;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ namespace Musify.Controllers.api
 {
     public class PlaylistsDetailsController : ApiController
     {
-        public ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PlaylistsDetailsController()
+        public PlaylistsDetailsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
@@ -30,8 +31,8 @@ namespace Musify.Controllers.api
                 SongId = playlistdetailsDto.SongId,
                 PlaylistId = playlistdetailsDto.PlaylistId
             };
-            _context.PlaylistDetails.Add(playlistDetails);
-            _context.SaveChanges();
+            _unitOfWork.PlaylistDetails.Create(playlistDetails);
+            _unitOfWork.Complete();
 
             return Ok();
         }
@@ -43,10 +44,10 @@ namespace Musify.Controllers.api
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var playlistDetailsInDb = _context.PlaylistDetails.SingleOrDefault(p => p.PlaylistId == playlistdetailsDto.PlaylistId && p.SongId == playlistdetailsDto.SongId);
+            var playlistDetailsInDb = _unitOfWork.PlaylistDetails.GetByPlaylistAndSongId(playlistdetailsDto.PlaylistId, playlistdetailsDto.SongId);
 
-            _context.PlaylistDetails.Remove(playlistDetailsInDb);
-            _context.SaveChanges();
+            _unitOfWork.PlaylistDetails.Delete(playlistDetailsInDb);
+            _unitOfWork.Complete();
 
             return Ok();
         }

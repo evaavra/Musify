@@ -17,6 +17,8 @@ namespace Musify.Persistence
         public ISongRepository Songs { get; private set; }
         public IGenreRepository Genres { get; private set; }
         public IUserRepository Users { get; private set; }
+        public IPlaylistRepository Playlists { get; private set; }
+        public IPlaylistDetailsRepository PlaylistDetails { get; private set; }
 
 
         public UnitOfWork(ApplicationDbContext context)
@@ -28,6 +30,8 @@ namespace Musify.Persistence
             Songs = new SongRepository(_context);
             Genres = new GenreRepository(_context);
             Users = new UserRepository(_context);
+            Playlists = new PlaylistRepository(_context);
+            PlaylistDetails = new PlaylistDetailsRepository(_context);
         }
 
         public void Complete()

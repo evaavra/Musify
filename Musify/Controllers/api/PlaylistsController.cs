@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Musify.Dtos;
+using Musify.Interfaces;
 using Musify.Models;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ namespace Musify.Controllers.api
 {
     public class PlaylistsController : ApiController
     {
-        public ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PlaylistsController()
+        public PlaylistsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
@@ -32,8 +33,8 @@ namespace Musify.Controllers.api
                 Name = playlistDto.Name,
                 UserId = userId
             };
-            _context.Playlists.Add(playlist);
-            _context.SaveChanges();
+            _unitOfWork.Playlists.Create(playlist);
+            _unitOfWork.Complete();
 
             return Ok(playlist);
         }
@@ -41,13 +42,13 @@ namespace Musify.Controllers.api
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
-            var playlist = _context.Playlists.SingleOrDefault(p => p.Id == id);
+            var playlist = _unitOfWork.Playlists.GetById(id);
 
             if (playlist == null)
                 return NotFound();
 
-            _context.Playlists.Remove(playlist);
-            _context.SaveChanges();
+            _unitOfWork.Playlists.Delete(playlist);
+            _unitOfWork.Complete();
 
             return Ok(id);
         }

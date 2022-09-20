@@ -8,28 +8,29 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using Musify.ViewModels;
 using System.Net;
+using Musify.Interfaces;
 
 namespace Musify.Controllers
 {
     [Authorize]
     public class PlaylistsController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PlaylistsController()
+        public PlaylistsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
         // GET: Playlists
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
-            var user = _context.Users.SingleOrDefault(u => u.Id == userId);
-            if(user.HasPaid == false)
+            var user = _unitOfWork.Users.GetUser(userId);
+            if (user.HasPaid == false)
             {
-                return RedirectToAction("Index","Payment");
+                return RedirectToAction("Index", "Payment");
             }
-            var playlists = _context.Playlists.Include(p => p.PlaylistDetails.Select(pl => pl.Song));
+            var playlists = _unitOfWork.Playlists.GetAllWithPlDetailsAndSongs();
             var userPlaylists = new List<Playlist>();
             foreach (var pl in playlists)
             {
@@ -48,15 +49,8 @@ namespace Musify.Controllers
 
         public ActionResult ListenToPlaylist(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                //return RedirectToAction("index");
-            }
-            var playlist = _context
-                .Playlists
-                .Include(p => p.PlaylistDetails.Select(pl => pl.Song))
-                .SingleOrDefault(p => p.Id == id);
+
+            var playlist = _unitOfWork.Playlists.GetByIdWithPlDetailsAndSongs(id);
             if (playlist == null)
             {
                 return HttpNotFound();
@@ -67,8 +61,8 @@ namespace Musify.Controllers
 
         public ActionResult Create(int? id)
         {
-            var playlist = _context.Playlists.Include(p => p.PlaylistDetails.Select(pl => pl.Song)).SingleOrDefault(p => p.Id == id);
-            var songs = _context.Songs.ToList();
+            var playlist = _unitOfWork.Playlists.GetByIdWithPlDetailsAndSongs(id);
+            var songs = _unitOfWork.Songs.GetAll().ToList();
             var songsInPlaylist = new List<Song>();
             var songsNotInPlaylist = new List<Song>();
             foreach (var song in songs)
@@ -76,8 +70,9 @@ namespace Musify.Controllers
                 var count = 0;
                 foreach (var pldet in playlist.PlaylistDetails)
                 {
-                    
-                    if (song.ID == pldet.SongId){
+
+                    if (song.ID == pldet.SongId)
+                    {
                         count++;
                         songsInPlaylist.Add(song);
                     }

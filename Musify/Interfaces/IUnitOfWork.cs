@@ -10,6 +10,8 @@ namespace Musify.Interfaces
         IGenreRepository Genres { get; }
         ISongRepository Songs { get; }
         IUserRepository Users { get; }
+        IPlaylistRepository Playlists { get; }
+        IPlaylistDetailsRepository PlaylistDetails { get; }
 
         void Complete();
     }

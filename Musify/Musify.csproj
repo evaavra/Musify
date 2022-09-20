@@ -288,6 +288,10 @@
     <Compile Include="Repositories\AlbumRepository.cs" />
     <Compile Include="Repositories\ArtistRepository.cs" />
     <Compile Include="Repositories\GenreRepository.cs" />
+    <Compile Include="Interfaces\IPlaylistDetailsRepository.cs" />
+    <Compile Include="Interfaces\IPlaylistRepository.cs" />
+    <Compile Include="Repositories\PlaylistDetailsRepository.cs" />
+    <Compile Include="Repositories\PlaylistRepository.cs" />
     <Compile Include="Repositories\SongRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Startup.cs" />
