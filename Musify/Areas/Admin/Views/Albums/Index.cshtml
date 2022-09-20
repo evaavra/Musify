@@ -12,7 +12,7 @@
         <thead>
             <tr>
                 <th>
-                    Title
+                    Album
                 </th>
                 <th>
                     Artist
@@ -24,7 +24,7 @@
                     Release Date
                 </th>
                 <th>
-                    Image
+                    Cover
                 </th>
                 <th></th>
             </tr>
@@ -43,7 +43,7 @@
                         @Html.DisplayFor(modelItem => album.Genre.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => album.ReleaseDate)
+                        @Html.DisplayFor(modelItem => album.ReleaseDate.Year)
                     </td>
                     <td>
                         <img src="~/img/@Url.Content(album.Thumbnail)" class="albums-photo" />
