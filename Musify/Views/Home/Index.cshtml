@@ -6,35 +6,35 @@
 }
 
 <style>
-ul.pagination
-{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /background-color: #333;/
-}
-.pagination li
-{
-    float: left;
-    border-right: 1px solid #bbb;
-}
-.pagination li:last-child
-{
-    border-right: none;
-}
-.pagination li a
-{
-    display: block;
-    color: Black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
+    ul.pagination {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        /background-color: #333;
+        /
+    }
 
-.pagination .active
-{
-    background-color: #4CAF50;
-}
+    .pagination li {
+        float: left;
+        border-right: 1px solid #bbb;
+    }
+
+        .pagination li:last-child {
+            border-right: none;
+        }
+
+        .pagination li a {
+            display: block;
+            color: Black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+    .pagination .active {
+        background-color: #4CAF50;
+    }
 </style>
 <div class="container">
     <h1>Artists</h1>
@@ -57,22 +57,12 @@ ul.pagination
 
     </div>
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    <br />
+    <br />
 </div>
 
-
-
-@*<div class="container">
-        <h1>Albums</h1>
-        <div class="row brighten">
-            @foreach (var album in Model.Albums)
-            {
-                <div class="col-md-3">
-                    <a href="@Url.Action("Details", "AlbumsDetails", new { controller = "AlbumsDetails", id = album.ID } )">
-                        <img src="~/img/@Url.Content(album.Thumbnail)" width="250" height="200" style="border-radius:10%" />
-                    </a>
-                    <h6 class="textHome">@album.Title</h6>
-                </div>
-            }
-
-        </div>
-    </div>*@ 
+<br/>
+<br />
+@{
+    Html.RenderAction("IndexPartial", "Home");
+}

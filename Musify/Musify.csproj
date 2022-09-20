@@ -421,6 +421,7 @@
     <Content Include="Views\ArtistsDetails\Index.cshtml" />
     <Content Include="Views\SongsDetails\Index.cshtml" />
     <Content Include="Views\Home\PartialPremium.cshtml" />
+    <Content Include="Views\Home\IndexPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

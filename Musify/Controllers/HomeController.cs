@@ -36,9 +36,17 @@ namespace Musify.Controllers
         public ActionResult Index(int? page)
         {
             var artists = _unitOfWork.Artists.GetAllWithAlbums().OrderBy(a => a.ID)
-                .ToPagedList(page ?? 1, 3);
+                .ToPagedList(page ?? 1, 4);
 
             return View(artists);
+        }
+
+        public ActionResult IndexPartial(int? pag)
+        {
+            var albums = _unitOfWork.Albums.GetAllWithArtistAndGenre2().OrderBy(a => a.ID)
+                .ToPagedList(pag ?? 1, 4);
+
+            return PartialView(albums);
         }
 
         public ActionResult About()
