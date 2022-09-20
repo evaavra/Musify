@@ -7,16 +7,17 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using Musify.ViewModels;
+using Musify.Interfaces;
 
 namespace Musify.Controllers
 {
     public class ArtistsDetailsController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ArtistsDetailsController()
+        public ArtistsDetailsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
 
@@ -25,20 +26,14 @@ namespace Musify.Controllers
         {
             var viewmodel = new ArtistsIndexViewModel()
             {
-                Artists = _context.Artists.Include(a => a.Albums).ToList()
+                Artists = _unitOfWork.Artists.GetAllWithAlbums().ToList()
             };
             return View(viewmodel);
         }
 
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Artist artist = _context.Artists
-                .Include(a => a.Albums.Select(al => al.Songs))
-                .SingleOrDefault(a => a.ID == id);
+            Artist artist = _unitOfWork.Artists.GetByIdWithAlbumsAndSongs(id);
 
             if (artist == null)
             {

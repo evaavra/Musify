@@ -57,6 +57,18 @@ namespace Musify.Repositories
                 .SingleOrDefault(a => a.ID == id);
         }
 
+        public Artist GetByIdWithAlbumsAndSongs(int? id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            return _context.Artists
+                .Include(a => a.Albums.Select(al => al.Songs))
+                .SingleOrDefault(a => a.ID == id);
+        }
+
         public void Create(Artist artist)
         {
             _context.Artists.Add(artist);
@@ -71,14 +83,6 @@ namespace Musify.Repositories
         {
             _context.Artists.Remove(artist);
         }
-
-        public IEnumerable<Artist> GetFirstFive()
-        {
-            var artists = _context.Artists;
-
-            var firstFour = artists.Take(5);
-
-            return firstFour;
-        }
+        
     }
 }

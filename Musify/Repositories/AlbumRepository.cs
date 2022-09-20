@@ -29,6 +29,11 @@ namespace Musify.Repositories
                 .Include(a => a.Genre);
         }
 
+        public IEnumerable<Album> GetAllWithSongs()
+        {
+            return _context.Albums.Include(a => a.Songs);
+        }
+
         public IQueryable<Album> GetAllWithArtistAndGenre2()
         {
             return _context.Albums
@@ -44,6 +49,18 @@ namespace Musify.Repositories
             }
 
             return _context.Albums
+                .SingleOrDefault(a => a.ID == id);
+        }
+
+        public Album GetByIdWithSongs(int? id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            return _context.Albums
+                .Include(a => a.Songs)
                 .SingleOrDefault(a => a.ID == id);
         }
 
@@ -85,14 +102,6 @@ namespace Musify.Repositories
         public void Delete(Album album)
         {
             _context.Albums.Remove(album);
-        }
-
-        public IEnumerable<Album> GetFirstFour()
-        {
-            var albums = _context.Albums;
-            var firstFour = albums.Take(4);
-
-            return firstFour;
         }
     }
 }
