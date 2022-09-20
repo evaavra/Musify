@@ -11,7 +11,7 @@ namespace Musify.Interfaces
         IEnumerable<Artist> GetAllWithAlbums();
         Artist GetById(int? id);
         Artist GetByIdWithAlbums(int? id);
-        IEnumerable<Artist> GetFirstFive();
+        Artist GetByIdWithAlbumsAndSongs(int? id);
         void Update(Artist artist);
     }
 }
