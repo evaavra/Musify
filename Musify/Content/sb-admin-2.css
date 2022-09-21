@@ -159,14 +159,14 @@ sup {
 }
 
 a {
-  color: #4e73df;
+  color: #050b1c;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #224abe;
-  text-decoration: underline;
+  color: #babdc7;
+  text-decoration: none;
 }
 
 a:not([href]):not([class]) {
@@ -2910,13 +2910,13 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #4e73df;
+  color: #050b1c;
   text-decoration: none;
 }
 
 .btn-link:hover {
-  color: #224abe;
-  text-decoration: underline;
+  color: #babdc7;
+  text-decoration: none;
 }
 
 .btn-link:focus, .btn-link.focus {

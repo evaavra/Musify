@@ -16,6 +16,13 @@
   text-rendering: auto;
   line-height: 1; }
 
+
+.audioPlayerAll::-webkit-media-controls-play-button,
+.audioPlayerAll::-webkit-media-controls-panel {
+    background-color: #647171;
+
+   
+}
 .textHome{
     text-align: center;
 }
@@ -76,15 +83,16 @@ ul#payment{
 }
 
 #playlist .current-song a{
-    color:blue;
+    color:#a3a3ff;
 }
 
 #cent-playl, .song-play {
     margin: auto;
     width: 50%;
-    background-color: darkslategray;
+    background-color:#647171;
     padding: 50px;
     border-radius:15px;
+    box-shadow: 0px 0px 60px #405a3d;
 }
 
 .song-play #songName { 
@@ -137,7 +145,7 @@ table.fixed {
 }
 
 #inputs #message{
-    width: 85%
+    width: 90%
 }
 
 #inputs #sendmessage {
@@ -157,6 +165,7 @@ table.fixed {
 #SearchTerm {
     margin-left: 400px;
     width: 300px;
+    border:none;
 }
 
 
