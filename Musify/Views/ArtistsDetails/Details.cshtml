@@ -1,8 +1,6 @@
 ﻿@model Musify.Models.Artist
 @{ ViewBag.Title = "Details"; }
 
-@*@<h2>Details</h2>@*@
-
 <div class="container">
     <img src="~/img/@Url.Content(Model.Thumbnail)" class="artists-photo" />
     <div>
@@ -14,17 +12,6 @@
             <dd>
                 @Model.Name
             </dd>
-
-
-
-            @*<dt>
-                    @Html.DisplayNameFor(model => model.Info)
-                </dt>
-                <dd>
-                    @Model.Info
-                </dd>*@
-
-
         </dl>
         <div>
             @foreach (var album in Model.Albums)
@@ -37,20 +24,13 @@
                     <div style="display: inline-block;  width: 500px;">
                         @foreach (var song in album.Songs)
                         {
-
                             <div style="margin-left: 40px; display: inline-block; width: 100%;  ">
                                 <div style="margin-bottom:20px;">
                                     <span>@($"{counter}: {song.Title}")</span>
-                                    @*<audio id="player" src="~/Songs/@song.SongPath" type="audio/mpeg"></audio>*@
-
                                     <audio controls id="artistAudio">
                                         <source src="~/Songs/@song.SongPath" type="audio/mpeg" />
-
                                     </audio>
                                 </div>
-
-                                @*<button onclick="document.getElementById('player').play()">Play</button>
-                                    <button onclick="document.getElementById('player').pause()">Pause</button>*@
                             </div>
                             counter += 1;
 
@@ -62,6 +42,5 @@
         <br />
         <br />
         <br />
-        @*@Html.ActionLink("Back to Home Page", "Index", new { controller = "Home" })*@
     </div>
 </div>
