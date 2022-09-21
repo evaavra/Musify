@@ -25,7 +25,7 @@
             var users = parseInt($(".lists").attr("users-count"));
             console.log(artists)
             var data = google.visualization.arrayToDataTable([
-                ['ffff', 'Mhl'],
+                ['ffff', 'Units'],
                 ['Artists', artists],
                 ['Albums', albums],
                 ['Songs', songs],
@@ -45,8 +45,8 @@
             var usersNotPaid = parseInt($(".lists").attr("users-havenotpaid-count"));
             var data = google.visualization.arrayToDataTable([
                 ['Contry', 'Mhl'],
-                ['Users who have paid', usersPaid],
-                ['Users who have not paid', usersNotPaid]
+                ['Users with premium subscription', usersPaid],
+                ['Users with default subscription', usersNotPaid]
             ]);
 
             var options = {

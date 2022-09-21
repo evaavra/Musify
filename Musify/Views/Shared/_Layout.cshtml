@@ -30,9 +30,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="~/Home/Index">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-music"></i>
-                </div>
+                
+                <img src="~/img/mus.jpg" width="50" height="50" style="border-radius:50%"/>
+                
                 <div class="sidebar-brand-text mx-3">Musify</div>
             </a>
             <!-- Divider -->
@@ -108,14 +108,8 @@
                                  aria-labelledby="userDropdown">
 
 
-
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user-circle"></i>
-                                    Profile
-                                </a>
                                 @if (!User.Identity.IsAuthenticated)
                                 {
-                                    <div class="dropdown-divider"></div>
 
                                     <a class="dropdown-item" href="~/Account/Register">
                                         <i class="fas fa-skiing"></i>
@@ -130,7 +124,6 @@
 
                                 @if (User.Identity.GetUserId() == "c57c3373-c769-4b2e-b67a-f39a9cfff781")
                                 {
-                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="~/Admin">
                                         <i class="fas fa-user-shield"></i>
                                         Admin Area
@@ -141,7 +134,6 @@
 
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt"></i>
                                         Logout

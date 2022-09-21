@@ -16,6 +16,10 @@
   text-rendering: auto;
   line-height: 1; }
 
+.black-lett{
+    color: black;
+}
+
 
 #IdentityForm {
     margin: 0 auto;
