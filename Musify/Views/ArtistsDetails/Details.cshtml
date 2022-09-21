@@ -1,46 +1,44 @@
 ﻿@model Musify.Models.Artist
 @{ ViewBag.Title = "Details"; }
 
+
 <div class="container">
-    <img src="~/img/@Url.Content(Model.Thumbnail)" class="artists-photo" />
+    <img src="~/img/@Url.Content(Model.Thumbnail)" class="artists-photo" style="border-radius:10%" />
+    <dl class="dl-horizontal">
+        <br />
+
+        <dd>
+            @Model.Name
+        </dd>
+
+    </dl>
     <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+        @foreach (var album in Model.Albums)
+        {
+            int counter = 1;
+            <div class="row" style="margin-bottom:20px;">
 
-            <dd>
-                @Model.Name
-            </dd>
-        </dl>
-        <div>
-            @foreach (var album in Model.Albums)
-            {
-                int counter = 1;
-                <div style="margin:20px;">
-                    <br /> <strong>Album:</strong> <span style="margin-right:30px;">@album.Title</span>
-                    <img src="~/img/@Url.Content(album.Thumbnail)" class="albums-photo-bigger" />
+                <div class="col">
+                    <span style="margin-right:30px; width:300px;">@album.Title</span><br>
+                    <span>@album.ReleaseDate.ToString("yyyy")</span>
+                </div>
+                <div class="col">
+                    <a href="@Url.Action("Details", "AlbumsDetails", new { controller = "AlbumsDetails", id = album.ID } )">
+                        <img src="~/img/@Url.Content(album.Thumbnail)" class="albums-photo-bigger" style="border-radius:10%" />
+                    </a>
+                </div>
+                <div class="col" style="width: 500px; display: inline-block;">
 
-                    <div style="display: inline-block;  width: 500px;">
-                        @foreach (var song in album.Songs)
-                        {
-                            <div style="margin-left: 40px; display: inline-block; width: 100%;  ">
-                                <div style="margin-bottom:20px;">
-                                    <span>@($"{counter}: {song.Title}")</span>
-                                    <audio controls id="artistAudio">
-                                        <source src="~/Songs/@song.SongPath" type="audio/mpeg" />
-                                    </audio>
-                                </div>
-                            </div>
-                            counter += 1;
-
-                        }
-                    </div>
-                    <br />
-                </div>}
-        </div>
-        <br />
-        <br />
-        <br />
+                    @foreach (var song in album.Songs)
+                    {
+                        <div class="row" style="margin-left: 20px; height: 35px; ">
+                            <span class="align-middle">@($"{counter}: {song.Title}")</span>
+                        </div>
+                        counter += 1;
+                    }
+                </div>
+            </div>
+            <hr />
+        }
     </div>
 </div>
