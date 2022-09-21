@@ -17,6 +17,25 @@
   line-height: 1; }
 
 
+#IdentityForm {
+    margin: 0 auto;
+    width: 50%;
+    padding: 50px;
+    background-color: #629191ed;
+    box-shadow: 0px 0px 60px #405a3d;
+    color: black;
+}
+
+.btn.btn-login {
+    color: black;
+}
+
+.img-login {
+    border-radius: 50%;
+    width: 300px;
+}
+
+
 /*.audioPlayerAll::-webkit-media-controls-play-button,*/
 .audioPlayerAll::-webkit-media-controls-panel {
     background-color: #629191ed;
