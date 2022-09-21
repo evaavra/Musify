@@ -77,11 +77,7 @@ namespace Musify.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (artist.ImageFile == null)
-                {
-                    artist.Thumbnail = "na_image.jpg";
-                }
-                else
+                if (artist.ImageFile != null)
                 {
                     artist.Thumbnail = Path.GetFileName(artist.ImageFile.FileName);
                     string fullPath = Path.Combine(Server.MapPath("~/img"), artist.Thumbnail);
